@@ -1,37 +1,58 @@
-// AURA AI Central Coordinator
+// AURA Wealth Central Coordinator - Full Integrated Version
 import { audio } from './audio.js';
 import { visual } from './canvas.js';
 
 class AuraApp {
   constructor() {
     this.activePage = 'hero';
+
+    // Personal Assistant Stats (in Rupees ₹)
+    this.stats = {
+      saved: 18500, // Monthly saved amount
+      fraudBlocked: 0, // Suspicious charges frozen
+      futureSurplus: 2450000, // 10-year projected surplus
+      leadsCrawled: 42, // Banker Leads count
+      qualifiedVolume: 2.4, // Banker qualified volume in Cr
+      conversionRate: 87.5
+    };
+
+    // AI Suggestions (Action Center Queue)
+    this.actionsQueue = [
+      { id: 'sip', title: 'Save ₹8,000 More Every Month', category: 'Investment', desc: 'You got a salary bump! We suggest auto-routing 35% of this extra money.', impact: '+₹9.8 Lakhs (10 yrs)', confidence: '96%', icon: 'trending-up' },
+      { id: 'sub', title: 'Cancel Unused SaaS Subscriptions', category: 'Savings', desc: 'Identified 3 active subscriptions you haven\'t logged into in 60 days.', impact: '+₹3,400/mo savings', confidence: '99%', icon: 'trash-2' },
+      { id: 'insurance', title: 'Switch to Cheaper Health Insurance', category: 'Wealth Protection', desc: 'Found an equivalent term plan matching your parameters with lower premium.', impact: '+₹1,200/mo savings', confidence: '92%', icon: 'shield' },
+      { id: 'fd', title: 'Move Surplus Cash to High-Yield FD', category: 'Investment', desc: 'Surplus cash sitting in savings account can yield 8.10% in AURA FD.', impact: '₹8,100 extra return/yr', confidence: '95%', icon: 'landmark' }
+    ];
+
+    // AI Memory Matrix tags
     this.memoryTags = [
       "Prefers UPI payments",
-      "Travels every December",
-      "Saves 35% after salary",
-      "Long-term goal: Buy House",
-      "Avoids high premium insurance",
-      "High cash-back seeker"
+      "Invests in ELSS tax savers",
+      "FD target duration: 1-3 years",
+      "Pre-approved limits preferred",
+      "Avoids high card joining fees",
+      "Seeks high cash-back on dining"
     ];
-    this.actionsQueue = [
-      { id: 'sip', title: 'Save $150 More Every Month', category: 'Investment', desc: 'You got a raise! We suggest saving 33% of this extra money.', impact: '+$18,500 (10 yrs)', confidence: '96%', icon: 'trending-up' },
-      { id: 'power', title: 'Switch to a Cheaper Electricity Plan', category: 'Savings', desc: 'Found a cheaper local electricity company with a discount.', impact: '+$180/yr savings', confidence: '92%', icon: 'zap' },
-      { id: 'sub', title: 'Cancel Unused App Subscriptions', category: 'Savings', desc: "Found 3 apps you haven't used in the last 90 days.", impact: '+$45/mo savings', confidence: '99%', icon: 'trash-2' },
-      { id: 'insurance', title: 'Get Tokyo Travel Insurance', category: 'Travel', desc: 'Found a Tokyo trip in your calendar. Here is a discounted travel insurance.', impact: 'Secures $25k risk', confidence: '94%', icon: 'plane' },
-      { id: 'tax', title: 'Save More on Taxes', category: 'Investment', desc: 'Put more into retirement to pay less taxes.', impact: '+$400 immediate return', confidence: '95%', icon: 'award' }
-    ];
+
+    // Operational Telemetry of background agents
     this.agentStates = [
-      { id: 'analyst', name: 'Budget Planner AI', task: 'Finding the best investment plans...', status: 'WORKING', speed: 92, mem: '1.2 GB', confidence: 98, typeLog: 'Checking files to find where you can save and grow money...' },
-      { id: 'behavior', name: 'Spending Assistant AI', task: 'Checking daily spending...', status: 'LEARNING', speed: 78, mem: '0.9 GB', confidence: 95, typeLog: 'Checking trips and monthly bills...' },
-      { id: 'life', name: 'Future Calculator AI', task: 'Checking home loan options...', status: 'PREDICTING', speed: 85, mem: '1.5 GB', confidence: 94, typeLog: 'Estimating future savings and goals...' },
-      { id: 'fraud', name: 'Security Guard AI', task: 'Checking card payments for safety...', status: 'SAFEGUARDING', speed: 99, mem: '2.1 GB', confidence: 99, typeLog: 'Scanning payment locations to prevent theft...' },
-      { id: 'invest', name: 'Investment Helper AI', task: 'Updating investments...', status: 'OPTIMIZING', speed: 89, mem: '1.8 GB', confidence: 97, typeLog: 'Calculating monthly investment shares...' }
+      { id: 'hunter', name: 'Lead Discovery Agent', task: 'Crawling MCA registrar & Indian social intent triggers...', status: 'CRAWLING', speed: 92, mem: '1.4 GB', confidence: 96, typeLog: 'Monitoring MCA new business registrations in Delhi/NCR and Bengaluru...' },
+      { id: 'risk', name: 'CIBIL Rating & Verification Agent', task: 'Performing secure soft credit pulls...', status: 'ONLINE', speed: 85, mem: '1.2 GB', confidence: 99, typeLog: 'Awaiting PAN authentication triggers to connect CIBIL portal...' },
+      { id: 'compliance', name: 'PAN & KYC Compliance Agent', task: 'Validating PAN format & Aadhaar V-KYC queues...', status: 'MONITORING', speed: 78, mem: '1.0 GB', confidence: 98, typeLog: 'Monitoring regulatory KYC check compliance according to RBI sandbox rules...' },
+      { id: 'customizer', name: 'Hyper-Personalization Agent', task: 'Optimizing Rupee (₹) limits & FD rates...', status: 'ONLINE', speed: 89, mem: '1.6 GB', confidence: 95, typeLog: 'Standing by to recalculate personalized cashback tiers and custom FD yield...' }
     ];
-    this.stats = {
-      saved: 380,
-      fraudBlocked: 12,
-      futureSurplus: 84350
-    };
+
+    // Banker Discovered Leads (India)
+    this.bankerLeads = [
+      { id: 'lead1', name: 'Aditya Sharma', location: 'Bengaluru', cibil: 785, intent: 94, product: 'Business Credit Line', status: 'Discovered', checked: true, profile: 'MCA: Registered startup "AuraTech Solutions" 10 days ago.' },
+      { id: 'lead2', name: 'Priya Nair', location: 'Mumbai', cibil: 812, intent: 89, product: 'Home Loan', status: 'Pre-Qualified', checked: true, profile: 'Property Portal: Searched for 2BHK flat in Bandra.' },
+      { id: 'lead3', name: 'Rohan Gupta', location: 'Delhi NCR', cibil: 720, intent: 78, product: 'Fixed Deposit', status: 'Discovered', checked: false, profile: 'LinkedIn: Updated job title to Director of Product.' },
+      { id: 'lead4', name: 'Deepak Kumar', location: 'Hyderabad', cibil: 650, intent: 82, product: 'Personal Loan', status: 'Under Review', checked: false, profile: 'Salary Sync: Frequent debit triggers, seeks consolidation.' }
+    ];
+
+    // Conversational Onboarding State
+    this.onboardStep = 0;
+    this.onboardData = { product: '', name: '', income: '', goal: '' };
   }
 
   init() {
@@ -39,14 +60,16 @@ class AuraApp {
     this.setupSidebarToggle();
     this.setupSoundHooks();
     this.setupTelemetryClock();
-    this.setupAgentSimulators();
+    
+    // Core Panel Init
+    this.setupOnboardingChat();
+    this.setupBankerDashboard();
     this.setupActionCenter();
-    this.setupMemoryControls();
     this.setupFutureSimulator();
+    this.setupMemoryControls();
     this.setupTimelineInteraction();
     this.setupEmergencyControls();
     this.setupProfileControls();
-    this.renderWorkforce();
     
     // Initialize Canvas systems
     const bgCanvas = document.getElementById('bg-canvas');
@@ -56,25 +79,29 @@ class AuraApp {
     if (globeCanvas) visual.initGlobe(globeCanvas);
     
     visual.tick();
+
+    // Set initial system stats
+    this.updateGlobalStats();
+
+    // Setup Agent telemetry logs
+    this.setupAgentSimulators();
+    this.addBankerConsoleLine('System', 'AURA Agentic Network initialized successfully.');
+    this.addBankerConsoleLine('Lead Discovery Agent', 'MCA crawler active in major Indian tech hubs.');
   }
 
-  // SOUND HOOKUPS
+  // --- STYLE & SOUND HOOKUPS ---
   setupSoundHooks() {
-    // Attach subtle hover sound to all clickables
     document.body.addEventListener('mouseover', (e) => {
-      const target = e.target.closest('button, .nav-item, .scenario-option, .memory-tag, .timeline-item');
-      if (target) {
-        audio.playTick();
-      }
+      const target = e.target.closest('button, .nav-item, .chat-option-btn, .btn-action-sm, .scenario-option, .memory-tag');
+      if (target) audio.playTick();
     });
 
-    // Interaction handler to unlock audio context in standard browsers
     document.body.addEventListener('click', () => {
       audio.resume();
     });
   }
 
-  // CLOCK TELEMETRY
+  // --- TELEMETRY IST CLOCK ---
   setupTelemetryClock() {
     const timeEl = document.getElementById('header-time');
     const updateTime = () => {
@@ -89,10 +116,8 @@ class AuraApp {
         second: '2-digit',
         hour12: false
       };
-      
       const formatter = new Intl.DateTimeFormat('en-IN', options);
       const parts = formatter.formatToParts(now);
-      
       let year, month, day, hour, minute, second;
       parts.forEach(p => {
         if (p.type === 'year') year = p.value;
@@ -102,14 +127,13 @@ class AuraApp {
         if (p.type === 'minute') minute = p.value;
         if (p.type === 'second') second = p.value;
       });
-      
-      timeEl.textContent = `${year}-${month}-${day} ${hour}:${minute}:${second} IST`;
+      if (timeEl) timeEl.textContent = `${year}-${month}-${day} ${hour}:${minute}:${second} IST`;
     };
     setInterval(updateTime, 1000);
     updateTime();
   }
 
-  // SPA PAGE TRANSITIONS
+  // --- ROUTING / NAVIGATIONAL SYSTEM ---
   setupNavigation() {
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => {
@@ -119,26 +143,25 @@ class AuraApp {
       });
     });
 
-    // Hero Landing CTA
+    // Hero Start Platform Button
     const launchBtn = document.getElementById('btn-launch-ai');
     if (launchBtn) {
       launchBtn.addEventListener('click', () => {
         audio.playSuccess();
         document.body.classList.remove('fullscreen-mode');
-        this.navigateTo('briefing');
+        this.navigateTo('onboard');
       });
     }
 
-    // Briefing Continue CTA
+    // Daily Briefing Continue CTA -> Actions Page
     const briefingBtn = document.getElementById('btn-briefing-continue');
     if (briefingBtn) {
       briefingBtn.addEventListener('click', () => {
-        this.navigateTo('mission-control');
+        this.navigateTo('action-center');
       });
     }
   }
 
-  // SIDEBAR TOGGLING CONTROLS
   setupSidebarToggle() {
     const closeBtn = document.getElementById('btn-close-sidebar');
     const openBtn = document.getElementById('btn-open-sidebar');
@@ -149,7 +172,6 @@ class AuraApp {
         audio.playSelect();
       });
     }
-
     if (openBtn) {
       openBtn.addEventListener('click', () => {
         document.body.classList.remove('sidebar-collapsed');
@@ -168,7 +190,6 @@ class AuraApp {
     const targetView = document.getElementById(`page-${pageId}`);
     if (targetView) targetView.classList.add('active');
 
-    // Update Sidebar state
     const activeNav = document.querySelector('.nav-item.active');
     if (activeNav) activeNav.classList.remove('active');
 
@@ -177,75 +198,487 @@ class AuraApp {
 
     this.activePage = pageId;
 
-
+    // Trigger page renders
+    if (pageId === 'agents') this.renderAgents();
+    else if (pageId === 'banker') this.renderBankerLeads();
+    else if (pageId === 'action-center') this.renderActionQueue();
+    else if (pageId === 'memory') this.renderMemoryTags();
   }
 
-  // AGENT TELEMETRY UPDATES
-  setupAgentSimulators() {
-    this.renderAgents();
+  // --- CONVERSATIONAL ONBOARDING FLOW ---
+  setupOnboardingChat() {
+    const sendBtn = document.getElementById('btn-send-message');
+    const userInput = document.getElementById('chat-user-input');
 
-    // Tick loops to fluctuate CPU levels and logs
-    setInterval(() => {
-      this.agentStates.forEach(agent => {
-        // Random fluctuate speeds, confidence and memory slightly
-        agent.speed = Math.min(100, Math.max(50, agent.speed + Math.floor(Math.random() * 11) - 5));
-        agent.confidence = Math.min(99, Math.max(90, agent.confidence + (Math.random() > 0.5 ? 1 : -1)));
-        
-        // Randomize active logs to make them feel organic
-        const actionPools = {
-          analyst: ["Checking savings plans...", "Checking fund balances...", "Finding investment options...", "Calculated possible gains"],
-          behavior: ["Checking shopping charges...", "Comparing weekly bills...", "Checking app subscriptions...", "Found weekend spend increase"],
-          life: ["Checking home loan rates...", "Estimating savings growth...", "Calculating wedding costs...", "Checked car loan details"],
-          fraud: ["Verifying payment safety...", "Checking browser location...", "Scanning checkout charges...", "Verifying card details"],
-          invest: ["Calculating monthly savings...", "Checking interest rates...", "Selecting low-fee funds...", "Balancing investments"]
-        };
-        const pool = actionPools[agent.id] || ["Processing data..."];
-        agent.typeLog = pool[Math.floor(Math.random() * pool.length)];
+    if (sendBtn) sendBtn.addEventListener('click', () => this.handleUserMessageSubmit());
+    if (userInput) {
+      userInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') this.handleUserMessageSubmit();
       });
-      this.renderAgents();
-    }, 3000);
+    }
+    this.restartOnboardingFlow();
   }
 
-  renderAgents() {
-    const grid = document.getElementById('agents-grid');
-    if (!grid || this.activePage !== 'mission-control') return;
+  restartOnboardingFlow() {
+    this.onboardStep = 0;
+    this.onboardData = { product: '', name: '', income: '', goal: '' };
+    
+    const chatBody = document.getElementById('onboard-chat-body');
+    if (chatBody) chatBody.innerHTML = '';
 
-    grid.innerHTML = this.agentStates.map(agent => `
-      <div class="glass-card agent-node-card">
-        <div class="agent-header">
-          <div class="agent-identity">
-            <span class="agent-dot-glow ${agent.status.toLowerCase()}"></span>
-            <h3>${agent.name}</h3>
-          </div>
-          <span class="agent-status-badge">${agent.status}</span>
+    const reasoningList = document.getElementById('onboard-reasoning-list');
+    if (reasoningList) {
+      reasoningList.innerHTML = `
+        <div class="reasoning-step">
+          <span class="agent">Onboarding Agent:</span>
+          <span class="text">Waiting for user to choose a financial product...</span>
         </div>
-        <div class="agent-card-body">
-          <p style="margin-bottom: 8px;"><strong>Active Task:</strong> ${agent.task}</p>
-          <div class="agent-thinking-log">
-            &gt; ${agent.typeLog}
-          </div>
-        </div>
-        <div class="agent-telemetry">
-          <div class="telemetry-item">
-            <label>CPU Utilization</label>
-            <span>${agent.speed}%</span>
-            <div class="telemetry-progress-track">
-              <div class="telemetry-progress-fill" style="width: ${agent.speed}%"></div>
+      `;
+    }
+
+    this.updateCardUI('default');
+
+    this.appendAssistantMessage(
+      `Namaste! I am AURA, your Agentic Onboarding Specialist. I coordinate with our background verification and credit check systems to qualify you for premium limits and yield options. <br><br>Which financial product would you like to explore today?`,
+      ['Premium Credit Card', 'High-Yield Fixed Deposit', 'Home Loan']
+    );
+  }
+
+  appendAssistantMessage(text, options = []) {
+    const chatBody = document.getElementById('onboard-chat-body');
+    if (!chatBody) return;
+
+    const bubble = document.createElement('div');
+    bubble.className = 'chat-bubble assistant';
+    bubble.innerHTML = `<span class="sender-label">Aura Concierge</span>${text}`;
+    chatBody.appendChild(bubble);
+
+    const optionsContainer = document.getElementById('chat-quick-options');
+    if (optionsContainer) {
+      optionsContainer.innerHTML = '';
+      if (options.length > 0) {
+        options.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'chat-option-btn';
+          btn.textContent = opt;
+          btn.addEventListener('click', () => this.handleQuickOptionClick(opt));
+          optionsContainer.appendChild(btn);
+        });
+      }
+    }
+
+    chatBody.scrollTop = chatBody.scrollHeight;
+    audio.playSelect();
+  }
+
+  appendUserMessage(text) {
+    const chatBody = document.getElementById('onboard-chat-body');
+    if (!chatBody) return;
+
+    const bubble = document.createElement('div');
+    bubble.className = 'chat-bubble user';
+    bubble.innerHTML = `<span class="sender-label">You</span>${text}`;
+    chatBody.appendChild(bubble);
+
+    chatBody.scrollTop = chatBody.scrollHeight;
+    audio.playTick();
+  }
+
+  appendReasoningLog(agentName, text) {
+    const list = document.getElementById('onboard-reasoning-list');
+    if (!list) return;
+
+    const step = document.createElement('div');
+    step.className = 'reasoning-step';
+    step.innerHTML = `<span class="agent">${agentName}:</span><span class="text">${text}</span>`;
+    list.appendChild(step);
+    list.scrollTop = list.scrollHeight;
+  }
+
+  handleQuickOptionClick(optionText) {
+    this.appendUserMessage(optionText);
+    this.processOnboardingStep(optionText);
+  }
+
+  handleUserMessageSubmit() {
+    const input = document.getElementById('chat-user-input');
+    if (!input) return;
+    const text = input.value.trim();
+    if (!text) return;
+
+    this.appendUserMessage(text);
+    input.value = '';
+    
+    const optionsContainer = document.getElementById('chat-quick-options');
+    if (optionsContainer) optionsContainer.innerHTML = '';
+
+    this.processOnboardingStep(text);
+  }
+
+  processOnboardingStep(input) {
+    const checkKYCEnabled = document.getElementById('chk-auto-kyc')?.checked !== false;
+    const checkCIBILEnabled = document.getElementById('chk-cibil-check')?.checked !== false;
+    const checkLiveOffersEnabled = document.getElementById('chk-live-offers')?.checked !== false;
+
+    if (this.onboardStep === 0) {
+      this.onboardData.product = input;
+      this.onboardStep = 1;
+      this.appendReasoningLog('Product Customizer Agent', `Eligibility template selected: "${input}".`);
+      
+      setTimeout(() => {
+        this.appendAssistantMessage(`Perfect! To run a secure eligibility check, could you please tell me your full name (as printed on your PAN card)?`);
+      }, 600);
+
+    } else if (this.onboardStep === 1) {
+      this.onboardData.name = input;
+      this.onboardStep = 2;
+
+      this.appendReasoningLog('PAN & KYC Compliance Agent', `PAN name captured: "${input}". Validating format...`);
+      if (checkKYCEnabled) {
+        this.appendReasoningLog('PAN & KYC Compliance Agent', `Soft PAN Verification lookup status: OK.`);
+      }
+
+      const cardHolder = document.getElementById('card-holder-display');
+      if (cardHolder) cardHolder.textContent = input.toUpperCase();
+
+      setTimeout(() => {
+        this.appendAssistantMessage(
+          `Great to meet you, ${input}! To estimate your credit capacity, what is your approximate monthly net salary?`,
+          ['Under ₹50,000', '₹50,000 - ₹1.5 Lakhs', '₹1.5 Lakhs - ₹3 Lakhs', 'Above ₹3 Lakhs']
+        );
+      }, 700);
+
+    } else if (this.onboardStep === 2) {
+      this.onboardData.income = input;
+      this.onboardStep = 3;
+
+      let scoreEstimate = 785;
+      if (input.includes('Under ₹50,000')) scoreEstimate = 690;
+      else if (input.includes('₹50,000 - ₹1.5 Lakhs')) scoreEstimate = 755;
+      else if (input.includes('₹1.5 Lakhs - ₹3 Lakhs')) scoreEstimate = 790;
+      else if (input.includes('Above ₹3 Lakhs')) scoreEstimate = 825;
+
+      this.onboardData.estimatedCIBIL = scoreEstimate;
+
+      if (checkCIBILEnabled) {
+        this.appendReasoningLog('CIBIL Rating Agent', `Initializing soft pull of credit ratings database...`);
+        this.appendReasoningLog('CIBIL Rating Agent', `Credit report returned CIBIL Score: ${scoreEstimate} (${scoreEstimate >= 750 ? 'Excellent' : 'Good'} Rating).`);
+      } else {
+        this.appendReasoningLog('CIBIL Rating Agent', `CIBIL pre-check skipped in settings.`);
+      }
+
+      setTimeout(() => {
+        this.appendAssistantMessage(
+          `Thank you! What is your primary spending category or financial goal? This allows us to optimize your limits.`,
+          ['Shopping & UPI Spends', 'Tax Saving & High Yield FDs', 'Property & Home Acquisition', 'Business Growth Capital']
+        );
+      }, 700);
+
+    } else if (this.onboardStep === 3) {
+      this.onboardData.goal = input;
+      this.onboardStep = 4;
+
+      this.appendReasoningLog('Hyper-Personalization Agent', `Aggregating variables. Goal matches reward tier: "${input}".`);
+      if (checkLiveOffersEnabled) {
+        this.appendReasoningLog('Hyper-Personalization Agent', `Adjusting interest rates and merchant cashbacks in Rupees (₹) live.`);
+      }
+
+      // Add to banker leads
+      const newLead = {
+        id: 'lead_' + Date.now(),
+        name: this.onboardData.name,
+        location: 'Bengaluru (Direct)',
+        cibil: this.onboardData.estimatedCIBIL || 785,
+        intent: 99,
+        product: this.onboardData.product,
+        status: 'Pre-Qualified',
+        checked: true,
+        profile: `Customer Intake: Income bracket ${this.onboardData.income}. Goal: ${this.onboardData.goal}.`
+      };
+      this.bankerLeads.unshift(newLead);
+      this.stats.leadsCrawled += 1;
+
+      let tier = 'silver';
+      if (this.onboardData.income.includes('1.5 Lakhs') || this.onboardData.income.includes('3 Lakhs')) tier = 'gold';
+      if (this.onboardData.income.includes('Above ₹3 Lakhs')) tier = 'platinum';
+
+      this.updateCardUI(tier, this.onboardData.product);
+
+      let addedVolume = 0.05; // 5L
+      if (tier === 'gold') addedVolume = 0.20; // 20L
+      if (tier === 'platinum') addedVolume = 0.75; // 75L
+      this.stats.qualifiedVolume += (addedVolume / 10);
+      this.updateBankerMetricsDisplay();
+
+      this.addBankerConsoleLine('Lead Discovery Agent', `New Qualified Lead: "${newLead.name}" qualified for ${newLead.product}. Volume: ₹${(addedVolume * 10).toFixed(1)} Lakhs.`);
+
+      setTimeout(() => {
+        this.appendAssistantMessage(
+          `🎉 Pre-qualification successful, ${this.onboardData.name}! <br><br>You qualify for our **AURA ${tier.toUpperCase()}** product tier. Your personalized credit limit/rate has been computed in the preview card.<br><br>Would you like to accept this offer and proceed to KYC?`,
+          ['Accept & Begin Video KYC', 'Modify Details', 'Start Over']
+        );
+        audio.playSuccess();
+      }, 1200);
+
+    } else if (this.onboardStep === 4) {
+      if (input.includes('Accept')) {
+        this.onboardStep = 5;
+        this.appendReasoningLog('PAN & KYC Compliance Agent', `Customer accepted pre-approved offer. Routing V-KYC pipeline...`);
+        this.appendReasoningLog('PAN & KYC Compliance Agent', `RBI Compliance check synced: Aadhaar verification pending V-KYC confirmation.`);
+        
+        setTimeout(() => {
+          this.appendAssistantMessage(
+            `Excellent! Your digital card is active. We have sent a secure link to your registered mobile number.<br><br>Please click it to complete your Aadhaar-based Video KYC (V-KYC) with our agent. Thank you for choosing AURA Wealth!`,
+            ['Restart Onboarding']
+          );
+          audio.playSuccess();
+        }, 800);
+      } else {
+        this.restartOnboardingFlow();
+      }
+    } else if (this.onboardStep === 5) {
+      this.restartOnboardingFlow();
+    }
+  }
+
+  updateCardUI(tier, product = 'Credit Card') {
+    const cardEl = document.getElementById('qualified-card');
+    const cardNumberEl = document.getElementById('card-number-display');
+    const cardTierEl = document.getElementById('card-tier-display');
+    const benefitsTitle = document.getElementById('benefits-title');
+    const benefitsList = document.getElementById('benefits-list');
+
+    if (!cardEl) return;
+
+    cardEl.classList.remove('silver', 'gold', 'platinum');
+
+    if (tier === 'default') {
+      cardEl.className = 'premium-credit-card silver';
+      if (cardNumberEl) cardNumberEl.textContent = 'XXXX XXXX XXXX XXXX';
+      if (cardTierEl) cardTierEl.textContent = 'SILVER TIER';
+      if (benefitsTitle) benefitsTitle.textContent = 'Select product in chat...';
+      if (benefitsList) {
+        benefitsList.innerHTML = `<li><i data-lucide="shield-check"></i>Complete chat to get pre-qualification checks.</li>`;
+      }
+    } else {
+      cardEl.classList.add(tier);
+      if (cardTierEl) cardTierEl.textContent = `AURA ${tier.toUpperCase()}`;
+
+      let cardNo = '4532 8821 9011 4322';
+      if (tier === 'gold') cardNo = '4532 9901 8872 1045';
+      if (tier === 'platinum') cardNo = '5012 3045 7781 9922';
+      if (cardNumberEl) cardNumberEl.textContent = cardNo;
+
+      if (product.includes('Fixed Deposit')) {
+        let fdRate = '7.25% p.a.';
+        let benefits = [];
+        if (tier === 'silver') {
+          fdRate = '7.25% p.a.';
+          benefits = [
+            'Fixed deposit rate: 7.25% p.a.',
+            'Quarterly payout options available',
+            'Additional 0.5% for Senior Citizens'
+          ];
+        } else if (tier === 'gold') {
+          fdRate = '7.65% p.a.';
+          benefits = [
+            'Special rate match: 7.65% p.a.',
+            'Flexible lock-in and interest options',
+            'Overdraft facility up to 90% of FD value'
+          ];
+        } else {
+          fdRate = '8.10% p.a.';
+          benefits = [
+            'Premium rate: 8.10% p.a.',
+            'Multi-tenure yield optimization',
+            'Zero premature withdrawal penalty after 6 mos'
+          ];
+        }
+        if (benefitsTitle) benefitsTitle.textContent = `High-Yield FD: ${fdRate}`;
+        if (benefitsList) {
+          benefitsList.innerHTML = benefits.map(b => `<li><i data-lucide="shield-check"></i>${b}</li>`).join('');
+        }
+      } else if (product.includes('Home Loan')) {
+        let loanRate = '8.55% p.a.';
+        let benefits = [];
+        if (tier === 'silver') {
+          loanRate = '8.55% p.a.';
+          benefits = [
+            'Approved loan limit: Up to ₹45 Lakhs',
+            'Floating rate: 8.55% p.a.',
+            'Low processing fee of 0.25% of loan value'
+          ];
+        } else if (tier === 'gold') {
+          loanRate = '8.40% p.a.';
+          benefits = [
+            'Approved loan limit: Up to ₹1.5 Crore',
+            'Floating rate: 8.40% p.a.',
+            'Zero processing fee for women applicants'
+          ];
+        } else {
+          loanRate = '8.25% p.a.';
+          benefits = [
+            'Approved loan limit: Up to ₹5 Crore',
+            'Floating rate: 8.25% p.a.',
+            'Zero processing fee & fast track 24hr sanction'
+          ];
+        }
+        if (benefitsTitle) benefitsTitle.textContent = `Home Loan Approved: ${loanRate}`;
+        if (benefitsList) {
+          benefitsList.innerHTML = benefits.map(b => `<li><i data-lucide="shield-check"></i>${b}</li>`).join('');
+        }
+      } else {
+        // Credit Card
+        let limitVal = '₹1.5 Lakhs';
+        let benefits = [];
+        if (tier === 'silver') {
+          limitVal = '₹1.5 Lakhs';
+          benefits = [
+            'Approved Limit: ₹1.5 Lakhs',
+            '1.5% cashback on UPI transactions',
+            'Zero joining fee & wallet insurance'
+          ];
+        } else if (tier === 'gold') {
+          limitVal = '₹5 Lakhs';
+          benefits = [
+            'Approved Limit: ₹5 Lakhs',
+            '3% cashback on Amazon & Flipkart spends',
+            '1 complimentary domestic lounge visit per quarter'
+          ];
+        } else {
+          limitVal = '₹15 Lakhs';
+          benefits = [
+            'Approved Limit: ₹15 Lakhs',
+            '5% cashback on Travel & Merchant Dining',
+            'Unlimited domestic & international lounge access'
+          ];
+        }
+        if (benefitsTitle) benefitsTitle.textContent = `Credit Card Limit: ${limitVal}`;
+        if (benefitsList) {
+          benefitsList.innerHTML = benefits.map(b => `<li><i data-lucide="shield-check"></i>${b}</li>`).join('');
+        }
+      }
+    }
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  // --- BANKER PORTAL LOGIC ---
+  setupBankerDashboard() {
+    this.renderBankerLeads();
+    this.updateBankerMetricsDisplay();
+  }
+
+  renderBankerLeads() {
+    const tbody = document.getElementById('banker-leads-tbody');
+    if (!tbody) return;
+
+    tbody.innerHTML = this.bankerLeads.map(lead => `
+      <tr id="lead-row-${lead.id}">
+        <td>
+          <div class="lead-profile">
+            <div class="lead-avatar">${lead.name.split(' ').map(n=>n[0]).join('')}</div>
+            <div>
+              <div class="lead-name">${lead.name}</div>
+              <div class="lead-location"><i data-lucide="map-pin" style="width:10px;height:10px;display:inline;margin-right:2px;"></i>${lead.location}</div>
             </div>
           </div>
-          <div class="telemetry-item">
-            <label>Confidence</label>
-            <span>${agent.confidence}%</span>
-            <div class="telemetry-progress-track">
-              <div class="telemetry-progress-fill" style="width: ${agent.confidence}%; background: var(--cyan-glow)"></div>
+        </td>
+        <td>${lead.product}</td>
+        <td>
+          <span class="score-value ${lead.cibil >= 750 ? 'text-emerald' : 'text-gold'}">${lead.cibil}</span>
+          <div style="font-size:10px;color:#64748b;">CIBIL rating</div>
+        </td>
+        <td>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="intent-bar-wrapper">
+              <div class="intent-bar-fill" style="width: ${lead.intent}%"></div>
             </div>
+            <span class="score-value text-gold">${lead.intent}%</span>
           </div>
-        </div>
-      </div>
+        </td>
+        <td>
+          <span style="font-size:11px;color:${lead.checked ? 'var(--emerald-glow)' : '#64748b'};">
+            <i data-lucide="${lead.checked ? 'shield-check' : 'shield-alert'}" style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:4px;"></i>
+            ${lead.checked ? 'VERIFIED' : 'PENDING'}
+          </span>
+        </td>
+        <td>
+          <button class="btn-action-sm btn-onboard-lead" data-id="${lead.id}">
+            Onboard Lead
+          </button>
+        </td>
+      </tr>
     `).join('');
+
+    tbody.querySelectorAll('.btn-onboard-lead').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const leadId = e.target.getAttribute('data-id');
+        this.handleBankerOnboardClick(leadId);
+      });
+    });
+    lucide.createIcons();
   }
 
-  // ACTION CENTER QUEUE
+  handleBankerOnboardClick(leadId) {
+    const lead = this.bankerLeads.find(x => x.id === leadId);
+    if (!lead) return;
+
+    audio.playSuccess();
+    this.navigateTo('onboard');
+
+    this.onboardStep = 0;
+    this.onboardData = { product: '', name: '', income: '', goal: '' };
+    
+    const chatBody = document.getElementById('onboard-chat-body');
+    if (chatBody) chatBody.innerHTML = '';
+
+    this.appendAssistantMessage(
+      `Namaste! I see you selected **${lead.name}** from the Banker dashboard.<br><br>Our Discovery Agent identified intent: <strong>"${lead.profile}"</strong>. Let's customize their onboarding for <strong>${lead.product}</strong>. <br><br>Initiate verification?`,
+      [`Verify ${lead.name}`, 'Cancel']
+    );
+
+    this.onboardStep = 1;
+    this.onboardData.product = lead.product;
+    this.onboardData.name = lead.name;
+    this.onboardData.estimatedCIBIL = lead.cibil;
+  }
+
+  updateBankerMetricsDisplay() {
+    const leadsEl = document.getElementById('metric-leads');
+    const volumeEl = document.getElementById('metric-volume');
+    const conversionEl = document.getElementById('metric-conversion');
+
+    if (leadsEl) leadsEl.textContent = this.stats.leadsCrawled;
+    if (volumeEl) volumeEl.textContent = `₹${this.stats.qualifiedVolume.toFixed(2)} Cr`;
+    if (conversionEl) conversionEl.textContent = `${this.stats.conversionRate.toFixed(1)}%`;
+  }
+
+  addBankerConsoleLine(agentName, message, type = 'normal') {
+    const logsEl = document.getElementById('banker-console-logs');
+    if (!logsEl) return;
+
+    const time = new Date().toLocaleTimeString('en-IN', { hour12: false });
+    let msgClass = '';
+    if (type === 'success') msgClass = 'success';
+    if (type === 'alert') msgClass = 'alert';
+
+    const logLine = document.createElement('div');
+    logLine.className = 'console-line';
+    logLine.innerHTML = `
+      <span class="console-time">[${time}]</span>
+      <span class="console-agent">${agentName}:</span>
+      <span class="console-msg ${msgClass}">${message}</span>
+    `;
+
+    logsEl.appendChild(logLine);
+    logsEl.scrollTop = logsEl.scrollHeight;
+
+    while (logsEl.children.length > 50) {
+      logsEl.removeChild(logsEl.firstChild);
+    }
+  }
+
+  // --- SUGGESTIONS (ACTION CENTER) ---
   setupActionCenter() {
     this.renderActionQueue();
   }
@@ -258,8 +691,8 @@ class AuraApp {
       container.innerHTML = `
         <div class="glass-card" style="text-align: center; padding: 40px;">
           <i data-lucide="check-circle" class="text-emerald" style="width: 48px; height: 48px; margin: 0 auto 16px auto;"></i>
-          <h3>All Actions Approved</h3>
-          <p style="color: #64748b; font-size: 13px; margin-top: 8px;">The AI Workforce has synced all allocations. Excellent work!</p>
+          <h3>All Suggestions Approved</h3>
+          <p style="color: #64748b; font-size: 13px; margin-top: 8px;">The AURA Agent Network has synchronized all savings and investment recommendations.</p>
         </div>
       `;
       lucide.createIcons();
@@ -290,7 +723,6 @@ class AuraApp {
       </div>
     `).join('');
 
-    // Attach actions
     container.querySelectorAll('.btn-action-approve').forEach(btn => {
       btn.addEventListener('click', (e) => this.handleActionApprove(e.target.getAttribute('data-id')));
     });
@@ -311,13 +743,18 @@ class AuraApp {
       card.style.transform = 'translateX(100px)';
       card.style.opacity = '0';
       setTimeout(() => {
+        const item = this.actionsQueue.find(x => x.id === id);
+        if (item) {
+          // Add to monthly savings
+          let val = 1200;
+          if (id === 'sip') val = 8000;
+          else if (id === 'sub') val = 3400;
+          else if (id === 'fd') val = 675; // 8100/12
+          this.stats.saved += val;
+          this.stats.futureSurplus += val * 120;
+          this.updateGlobalStats();
+        }
         this.actionsQueue = this.actionsQueue.filter(item => item.id !== id);
-        
-        // Update Impact Stats dynamically
-        this.stats.saved += 65;
-        this.stats.futureSurplus += 8500;
-        this.updateGlobalStats();
-        
         this.renderActionQueue();
       }, 300);
     }
@@ -338,34 +775,23 @@ class AuraApp {
 
   handleActionModify(id) {
     audio.playSelect();
-    const newAmount = prompt("Enter modified monthly value:", "$120");
+    const newAmount = prompt("Enter modified monthly amount (e.g. ₹5,000):", "₹5,000");
     if (newAmount) {
       const item = this.actionsQueue.find(x => x.id === id);
       if (item) {
-        item.title = item.title.replace(/\$\d+/, newAmount);
-        item.desc = `User adjusted baseline value. Recalculated index allocation to ${newAmount}/mo.`;
+        item.title = item.title.replace(/₹\d+[\,\d+]*/, newAmount);
+        item.desc = `User adjusted baseline recommendations. Custom allocation set to ${newAmount}/mo.`;
         this.renderActionQueue();
       }
     }
   }
 
   updateGlobalStats() {
-    // Briefing saved counter
     const briefSaved = document.getElementById('briefing-saved-counter');
-    if (briefSaved) briefSaved.textContent = `$${this.stats.saved.toFixed(2)}`;
-
-    // Impact panel indicators
-    const impSaved = document.getElementById('impact-savings-counter');
-    if (impSaved) impSaved.textContent = `$${this.stats.saved.toFixed(2)}`;
-
-    const impFraud = document.getElementById('impact-fraud-counter');
-    if (impFraud) impFraud.textContent = this.stats.fraudBlocked;
-
-    const impSurplus = document.getElementById('impact-surplus-counter');
-    if (impSurplus) impSurplus.textContent = `$${this.stats.futureSurplus.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    if (briefSaved) briefSaved.textContent = `₹${this.stats.saved.toLocaleString('en-IN')}`;
   }
 
-  // FUTURE SIMULATOR SCENARIOS
+  // --- SAVINGS SIMULATOR ---
   setupFutureSimulator() {
     const scenarioOpts = document.querySelectorAll('.scenario-option');
     const downSlider = document.getElementById('slider-down-payment');
@@ -376,39 +802,34 @@ class AuraApp {
       const downVal = parseInt(downSlider.value);
       const monthlyVal = parseInt(monthlySlider.value);
 
-      // Render sliders text
-      document.getElementById('val-slider-down').textContent = `$${downVal.toLocaleString()}`;
-      document.getElementById('val-slider-monthly').textContent = `$${monthlyVal.toLocaleString()}`;
+      document.getElementById('val-slider-down').textContent = `₹${downVal.toLocaleString('en-IN')}`;
+      document.getElementById('val-slider-monthly').textContent = `₹${monthlyVal.toLocaleString('en-IN')}`;
 
-      // Simulate calculations
       let multiplier = 1.0;
       if (activeScenario === 'car') multiplier = 0.85;
       if (activeScenario === 'house') multiplier = 1.4;
       if (activeScenario === 'marriage') multiplier = 0.95;
-      if (activeScenario === 'tour') multiplier = 0.7;
+      if (activeScenario === 'tour') multiplier = 0.75;
 
-      const baseVal = downVal * 4 + monthlyVal * 120;
-      const netA = baseVal * 0.9 * multiplier;
+      const baseVal = downVal + monthlyVal * 120;
+      const netA = baseVal * 1.05 * multiplier;
       const netB = baseVal * 1.35 * multiplier;
-      const netC = baseVal * 1.7 * multiplier;
+      const netC = baseVal * 1.65 * multiplier;
 
-      // Update counters
-      document.getElementById('stat-a-net').textContent = `$${Math.round(netA).toLocaleString()}`;
-      document.getElementById('stat-b-net').textContent = `$${Math.round(netB).toLocaleString()}`;
-      document.getElementById('stat-c-net').textContent = `$${Math.round(netC).toLocaleString()}`;
+      document.getElementById('stat-a-net').textContent = `₹${Math.round(netA).toLocaleString('en-IN')}`;
+      document.getElementById('stat-b-net').textContent = `₹${Math.round(netB).toLocaleString('en-IN')}`;
+      document.getElementById('stat-c-net').textContent = `₹${Math.round(netC).toLocaleString('en-IN')}`;
 
-      // Redraw SVG chart paths beautifully based on variables
       const pathA = document.getElementById('chart-path-a');
       const pathB = document.getElementById('chart-path-b');
       const pathC = document.getElementById('chart-path-c');
 
-      // Adjust control points to make graph flex on slide
-      const flexH = Math.min(180, Math.max(30, 180 - (monthlyVal / 30)));
-      const flexD = Math.min(150, Math.max(20, 160 - (downVal / 1000)));
+      const flexH = Math.min(180, Math.max(30, 180 - (monthlyVal / 600)));
+      const flexD = Math.min(150, Math.max(20, 160 - (downVal / 20000)));
 
-      pathA.setAttribute('d', `M 0 180 Q 125 ${flexH + 20} 250 ${flexH} T 500 ${flexD + 30}`);
-      pathB.setAttribute('d', `M 0 180 Q 125 ${flexH - 10} 250 ${flexH - 30} T 500 ${flexD}`);
-      pathC.setAttribute('d', `M 0 180 Q 125 ${flexH - 30} 250 ${flexH - 60} T 500 ${flexD - 30}`);
+      if (pathA) pathA.setAttribute('d', `M 0 180 Q 125 ${flexH + 20} 250 ${flexH} T 500 ${flexD + 35}`);
+      if (pathB) pathB.setAttribute('d', `M 0 180 Q 125 ${flexH - 10} 250 ${flexH - 30} T 500 ${flexD}`);
+      if (pathC) pathC.setAttribute('d', `M 0 180 Q 125 ${flexH - 30} 250 ${flexH - 60} T 500 ${flexD - 35}`);
     };
 
     scenarioOpts.forEach(opt => {
@@ -420,17 +841,15 @@ class AuraApp {
       });
     });
 
-    downSlider.addEventListener('input', updateCalculations);
-    monthlySlider.addEventListener('input', updateCalculations);
+    if (downSlider) downSlider.addEventListener('input', updateCalculations);
+    if (monthlySlider) monthlySlider.addEventListener('input', updateCalculations);
 
-    // Initial run
     updateCalculations();
   }
 
-  // AI MEMORY CONTROLS
+  // --- AI MEMORY PREFERENCES ---
   setupMemoryControls() {
     this.renderMemoryTags();
-
     const addBtn = document.getElementById('btn-add-memory');
     const textInput = document.getElementById('input-new-memory');
 
@@ -461,7 +880,7 @@ class AuraApp {
     `).join('');
 
     container.querySelectorAll('.btn-tag-delete').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', () => {
         const idx = parseInt(btn.getAttribute('data-index'));
         audio.playAlert();
         this.memoryTags.splice(idx, 1);
@@ -472,20 +891,14 @@ class AuraApp {
     lucide.createIcons();
   }
 
-
-
-  // LIFE TIMELINE ACCORDION INTERACTIONS
+  // --- ACCORDION TIMELINE MAP ---
   setupTimelineInteraction() {
     const timelineItems = document.querySelectorAll('.timeline-item');
     timelineItems.forEach(item => {
       item.addEventListener('click', () => {
         audio.playSelect();
         const isAlreadyExpanded = item.classList.contains('expanded');
-        
-        // Collapse all items
         timelineItems.forEach(el => el.classList.remove('expanded'));
-        
-        // If not already expanded, expand the clicked one
         if (!isAlreadyExpanded) {
           item.classList.add('expanded');
         }
@@ -493,7 +906,7 @@ class AuraApp {
     });
   }
 
-  // EMERGENCY SYSTEM CONTROLS
+  // --- SECURITY EMERGENCY OVERLAY ---
   setupEmergencyControls() {
     const triggerBtn = document.getElementById('btn-trigger-emergency');
     const overlay = document.getElementById('emergency-overlay');
@@ -505,8 +918,6 @@ class AuraApp {
       triggerBtn.addEventListener('click', () => {
         audio.playAlert();
         overlay.classList.add('active');
-        
-        // Loop low beep alert sounds while warning is open
         const alertLoop = setInterval(() => {
           if (overlay.classList.contains('active')) {
             audio.playAlert();
@@ -525,9 +936,9 @@ class AuraApp {
     if (freezeBtn) {
       freezeBtn.addEventListener('click', () => {
         audio.playSuccess();
-        alert("SECURITY TRIGGERED: AI HAS SUSPENDED CREDIT VEHICLES. RE-VERIFY VIA BIO-IDENTIFICATION.");
+        alert("SECURITY FREEZE TRIGGERED: AI HAS SUSPENDED CREDIT CARDS & UPI CHANNELS. AUTHENTICATE IN-PERSON TO RE-ENABLE.");
         this.stats.fraudBlocked++;
-        this.updateGlobalStats();
+        this.addBankerConsoleLine('Security Guard AI', 'FRAUD PREVENTED: Account cards and sync links frozen.', 'alert');
         overlay.classList.remove('active');
       });
     }
@@ -536,50 +947,9 @@ class AuraApp {
     if (bypassBtn) bypassBtn.addEventListener('click', closeOverlay);
   }
 
-  // WORKFORCE DIRECTORY DISPLAY
-  renderWorkforce() {
-    const container = document.getElementById('workforce-container');
-    if (!container) return;
-
-    const workforce = [
-      { role: 'Lead Manager AI', initial: 'LM', desc: 'Combines advice from all other AI helpers to give you the final recommendations.', mem: '4.8 GB', key: 'SYS-ROOT-0', activity: 'Writing your daily update...' },
-      { role: 'Budget Planner AI', initial: 'BP', desc: 'Helps you save on taxes, checks your credit rating, and matches investments.', mem: '2.4 GB', key: 'FP-V4.2', activity: 'Finding ways to pay less tax...' },
-      { role: 'Spending Tracker AI', initial: 'ST', desc: 'Finds quick increases in spending, unused apps, and bills.', mem: '1.8 GB', key: 'BA-V1.9', activity: 'Scanning subscription charges...' },
-      { role: 'Investment Helper AI', initial: 'IH', desc: 'Calculates simple ways to buy and grow investment funds monthly.', mem: '3.2 GB', key: 'IS-V3.0', activity: 'Calculating monthly investments...' },
-      { role: 'Security Guard AI', initial: 'SG', desc: 'Instantly checks where card transactions happen to prevent theft.', mem: '2.0 GB', key: 'FI-V12.1', activity: 'Verifying payment location details...' },
-      { role: 'Goal Tracker AI', initial: 'GT', desc: 'Keeps track of important future costs, home loans, and savings.', mem: '1.6 GB', key: 'LC-V2.5', activity: 'Checking home loan rates...' }
-    ];
-
-    container.innerHTML = workforce.map(emp => `
-      <div class="glass-card employee-card">
-        <div class="employee-header">
-          <div class="employee-avatar-wrapper">
-            <div class="employee-avatar">${emp.initial}</div>
-            <div class="employee-avatar-pulse"></div>
-          </div>
-          <div class="employee-identity">
-            <h3>${emp.role}</h3>
-            <p>ID: ${emp.key}</p>
-          </div>
-        </div>
-        <div class="employee-task-box">
-          <label>Current Task</label>
-          <span>${emp.activity}</span>
-        </div>
-        <p style="font-size: 12px; color: #94a3b8; margin-bottom: 16px; line-height: 1.5;">${emp.desc}</p>
-        <div class="employee-meta-row">
-          <span>Memory Used: ${emp.mem}</span>
-          <span style="color: var(--cyan-glow)">Status: Active & Secure</span>
-        </div>
-      </div>
-    `).join('');
-
-    lucide.createIcons();
-  }
-
-  // PROFILE EDITOR CONTROLS
+  // --- USER PROFILE CONFIGURE MODAL ---
   setupProfileControls() {
-    const userPanel = document.querySelector('.user-panel');
+    const userPanel = document.getElementById('btn-user-panel');
     const overlay = document.getElementById('profile-overlay');
     const saveBtn = document.getElementById('btn-save-profile');
     const cancelBtn = document.getElementById('btn-cancel-profile');
@@ -607,7 +977,6 @@ class AuraApp {
         const newName = nameInput.value.trim();
         if (newName) {
           audio.playSuccess();
-          
           const words = newName.split(/\s+/);
           let initials = "";
           if (words[0]) initials += words[0][0].toUpperCase();
@@ -623,16 +992,123 @@ class AuraApp {
           const syncStateText = document.querySelector('.user-details p');
           if (syncStateText) syncStateText.textContent = `ACCOUNT SYNC: ${syncSelect.value}`;
 
-          const greetingText = document.querySelector('#page-briefing h2');
-          if (greetingText) {
-            const firstName = words[0];
-            greetingText.textContent = `Good Morning ${firstName}`;
-          }
+          // Briefing Greeting update
+          const greetingText = document.getElementById('briefing-user-greeting');
+          if (greetingText) greetingText.textContent = `Namaste ${words[0]}`;
 
           overlay.style.display = 'none';
         }
       });
     }
+  }
+
+  // --- AGENT TELEMETRY SYSTEM FLUTTER ---
+  setupAgentSimulators() {
+    this.renderBankerAgentsList();
+
+    setInterval(() => {
+      this.agentStates.forEach(agent => {
+        agent.speed = Math.min(100, Math.max(50, agent.speed + Math.floor(Math.random() * 11) - 5));
+        agent.confidence = Math.min(99, Math.max(90, agent.confidence + (Math.random() > 0.5 ? 1 : -1)));
+
+        const actionPools = {
+          hunter: [
+            "Crawling MCA filings in Delhi NCR...",
+            "Searching Twitter for keywords: 'home loan Mumbai'...",
+            "Crawling startup registries in Bangalore...",
+            "Discovered new intent signal from GSTIN registry update."
+          ],
+          risk: [
+            "Awaiting credit pull triggers...",
+            "Querying CIBIL soft credit pre-check scores...",
+            "Updating default risk probability maps...",
+            "Validating debt-to-income limits."
+          ],
+          compliance: [
+            "Verifying PAN format and Aadhaar verification queues...",
+            "Monitoring RBI sandbox regulation updates...",
+            "Validating KYC digital signature verification...",
+            "Syncing Secure KYC Routine: OK."
+          ],
+          customizer: [
+            "Awaiting client intake data...",
+            "Optimizing FD rate tiers against current RBI repo rate...",
+            "Personalizing cashback limit schedules...",
+            "Recalculating Home Loan interest rates."
+          ]
+        };
+
+        const pool = actionPools[agent.id] || ["Processing background operations..."];
+        const oldLog = agent.typeLog;
+        agent.typeLog = pool[Math.floor(Math.random() * pool.length)];
+
+        if (Math.random() > 0.6 && agent.typeLog !== oldLog) {
+          this.addBankerConsoleLine(agent.name, agent.typeLog, Math.random() > 0.85 ? 'success' : 'normal');
+        }
+      });
+
+      this.renderAgents();
+      this.renderBankerAgentsList();
+    }, 4000);
+  }
+
+  renderBankerAgentsList() {
+    const listEl = document.getElementById('banker-agents-list');
+    if (!listEl) return;
+
+    listEl.innerHTML = this.agentStates.map(agent => `
+      <div class="agent-mini-card">
+        <div class="agent-mini-info">
+          <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+          <div>
+            <div class="agent-mini-name">${agent.name}</div>
+            <div class="agent-mini-status">${agent.task.substring(0, 36)}...</div>
+          </div>
+        </div>
+        <span class="agent-mini-badge badge-working">ACTIVE</span>
+      </div>
+    `).join('');
+
+    lucide.createIcons();
+  }
+
+  renderAgents() {
+    const grid = document.getElementById('agents-grid');
+    if (!grid || this.activePage !== 'agents') return;
+
+    grid.innerHTML = this.agentStates.map(agent => `
+      <div class="glass-card agent-node-card">
+        <div class="agent-header">
+          <div class="agent-identity">
+            <span class="agent-dot-glow working"></span>
+            <h3>${agent.name}</h3>
+          </div>
+          <span class="agent-status-badge badge-working">${agent.status}</span>
+        </div>
+        <div class="agent-card-body">
+          <p style="margin-bottom: 8px;"><strong>Active Task:</strong> ${agent.task}</p>
+          <div class="agent-thinking-log" style="border-left-color: var(--emerald-glow);">
+            &gt; ${agent.typeLog}
+          </div>
+        </div>
+        <div class="agent-telemetry">
+          <div class="telemetry-item">
+            <label>CPU Utilization</label>
+            <span>${agent.speed}%</span>
+            <div class="telemetry-progress-track">
+              <div class="telemetry-progress-fill" style="width: ${agent.speed}%; background: linear-gradient(90deg, var(--emerald-glow), var(--gold-glow));"></div>
+            </div>
+          </div>
+          <div class="telemetry-item">
+            <label>Confidence Score</label>
+            <span>${agent.confidence}%</span>
+            <div class="telemetry-progress-track">
+              <div class="telemetry-progress-fill" style="width: ${agent.confidence}%; background: var(--emerald-glow)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `).join('');
   }
 }
 

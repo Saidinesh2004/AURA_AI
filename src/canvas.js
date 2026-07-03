@@ -1,5 +1,5 @@
-// AURA AI Visual Systems
-// Handles HTML5 Canvas backgrounds (neural nodes and 3D spinning globe)
+// AURA Wealth Visual Systems - Localized Indian Banking Canvas Design
+// Handles HTML5 Canvas backgrounds (neural nodes and 3D spinning globe) in green/gold theme
 
 class VisualEngine {
   constructor() {
@@ -13,10 +13,10 @@ class VisualEngine {
     this.globePoints = [];
     this.animationFrameId = null;
     this.themeColors = {
-      blue: 'rgba(0, 240, 255, 0.4)',
-      purple: 'rgba(157, 78, 221, 0.4)',
-      blueSolid: '#00f0ff',
-      purpleSolid: '#9d4edd'
+      emerald: 'rgba(16, 185, 129, 0.4)',
+      gold: 'rgba(245, 158, 11, 0.4)',
+      emeraldSolid: '#10b981',
+      goldSolid: '#f59e0b'
     };
   }
 
@@ -56,7 +56,7 @@ class VisualEngine {
         vx: (Math.random() - 0.5) * 0.4,
         vy: (Math.random() - 0.5) * 0.4,
         radius: Math.random() * 2 + 1,
-        color: Math.random() > 0.5 ? this.themeColors.blue : this.themeColors.purple
+        color: Math.random() > 0.5 ? this.themeColors.emerald : this.themeColors.gold
       });
     }
   }
@@ -71,8 +71,8 @@ class VisualEngine {
         this.mouse.x, this.mouse.y, 0,
         this.mouse.x, this.mouse.y, this.mouse.maxDist
       );
-      grad.addColorStop(0, 'rgba(0, 240, 255, 0.12)');
-      grad.addColorStop(0.5, 'rgba(157, 78, 221, 0.04)');
+      grad.addColorStop(0, 'rgba(16, 185, 129, 0.12)');
+      grad.addColorStop(0.5, 'rgba(245, 158, 11, 0.04)');
       grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
       this.bgCtx.fillStyle = grad;
       this.bgCtx.beginPath();
@@ -117,7 +117,7 @@ class VisualEngine {
         const mDist = Math.hypot(n1.x - this.mouse.x, n1.y - this.mouse.y);
         if (mDist < this.mouse.maxDist) {
           const alpha = (1 - mDist / this.mouse.maxDist) * 0.55;
-          this.bgCtx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
+          this.bgCtx.strokeStyle = `rgba(16, 185, 129, ${alpha})`;
           this.bgCtx.lineWidth = 1.2;
           this.bgCtx.beginPath();
           this.bgCtx.moveTo(n1.x, n1.y);
@@ -198,7 +198,7 @@ class VisualEngine {
         
         if (distance < 35 && connections < 3) {
           const alpha = (1 - distance / 35) * (0.05 + (p1.z + 120) / 240 * 0.25);
-          ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
+          ctx.strokeStyle = `rgba(16, 185, 129, ${alpha})`;
           ctx.beginPath();
           ctx.moveTo(p1.x, p1.y);
           ctx.lineTo(p2.x, p2.y);
@@ -210,13 +210,13 @@ class VisualEngine {
 
     // Draw particle points
     projectedPoints.forEach(p => {
-      // Color depends on depth (cyan in front, purple in back)
+      // Color depends on depth (emerald in front, gold in back)
       const ratio = (p.z + 120) / 240; // 0 to 1
       const size = Math.max(0.5, p.scale * 2.5);
       
-      const r = Math.round(157 * (1 - ratio) + 0 * ratio);
-      const g = Math.round(78 * (1 - ratio) + 240 * ratio);
-      const b = Math.round(221 * (1 - ratio) + 255 * ratio);
+      const r = Math.round(245 * (1 - ratio) + 16 * ratio);
+      const g = Math.round(158 * (1 - ratio) + 185 * ratio);
+      const b = Math.round(11 * (1 - ratio) + 129 * ratio);
       const alpha = 0.2 + ratio * 0.7;
 
       ctx.beginPath();

@@ -4,12 +4,19 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AURA AI - Your Personal AI Assistant</title>
+    <title>AURA Wealth - Agentic Indian Banking & Wealth Assistant</title>
     <!-- Lucide Icons Library -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body class="fullscreen-mode">
+    <!-- Ambient Aurora Glow Elements -->
+    <div class="aurora-container">
+      <div class="aurora-glow aurora-1"></div>
+      <div class="aurora-glow aurora-2"></div>
+      <div class="aurora-glow aurora-3"></div>
+    </div>
+
     <!-- Visual Canvas & Scanline Overlay -->
     <canvas id="bg-canvas"></canvas>
     <div class="scanlines-overlay"></div>
@@ -20,8 +27,8 @@
         <div>
           <div class="sidebar-logo">
             <div class="logo-brand">
-              <i data-lucide="cpu" class="text-cyan"></i>
-              <h2>AURA AI</h2>
+              <i data-lucide="landmark" class="text-emerald"></i>
+              <h2>AURA WEALTH</h2>
             </div>
             <button id="btn-close-sidebar" class="sidebar-toggle-btn" title="Close Sidebar">
               <i data-lucide="chevron-left"></i>
@@ -30,20 +37,20 @@
           
           <ul class="nav-links">
             <li class="nav-item active" data-page="hero">
-              <i data-lucide="home"></i>
-              <span>Welcome Screen</span>
+              <i data-lucide="power"></i>
+              <span>System Startup</span>
+            </li>
+            <li class="nav-item" data-page="onboard">
+              <i data-lucide="messages-square"></i>
+              <span>Client Onboarding</span>
             </li>
             <li class="nav-item" data-page="briefing">
-              <i data-lucide="align-left"></i>
-              <span>Daily Update</span>
+              <i data-lucide="sparkles"></i>
+              <span>Daily Briefing</span>
             </li>
-            <li class="nav-item" data-page="mission-control">
-              <i data-lucide="activity"></i>
-              <span>AI Helpers Status</span>
-            </li>
-            <li class="nav-item" data-page="timeline">
-              <i data-lucide="clock"></i>
-              <span>Future Expenses Map</span>
+            <li class="nav-item" data-page="banker">
+              <i data-lucide="bar-chart-3"></i>
+              <span>Banker Control Room</span>
             </li>
             <li class="nav-item" data-page="action-center">
               <i data-lucide="layers"></i>
@@ -53,28 +60,27 @@
               <i data-lucide="trending-up"></i>
               <span>Savings Simulator</span>
             </li>
-            <li class="nav-item" data-page="workforce">
-              <i data-lucide="users"></i>
-              <span>AI Helpers List</span>
+            <li class="nav-item" data-page="timeline">
+              <i data-lucide="calendar-range"></i>
+              <span>Future Expenses Map</span>
             </li>
             <li class="nav-item" data-page="memory">
               <i data-lucide="database"></i>
-              <span>AI Memory</span>
+              <span>AI Memory & Prefs</span>
             </li>
-
-            <li class="nav-item" data-page="impact">
-              <i data-lucide="bar-chart-2"></i>
-              <span>Savings Progress</span>
+            <li class="nav-item" data-page="agents">
+              <i data-lucide="cpu"></i>
+              <span>Agent Status Monitor</span>
             </li>
             <li class="nav-item" data-page="settings">
-              <i data-lucide="settings"></i>
+              <i data-lucide="sliders-horizontal"></i>
               <span>Settings</span>
             </li>
           </ul>
         </div>
 
         <div class="sidebar-footer">
-          <div class="user-panel">
+          <div class="user-panel" id="btn-user-panel">
             <div class="user-avatar">Sai</div>
             <div class="user-details">
               <h4>Sai Charan</h4>
@@ -92,7 +98,7 @@
           </button>
           <div class="system-status">
             <span class="status-indicator"></span>
-            <span>SYSTEM STATUS: ACTIVE & SECURE</span>
+            <span>AGENTIC NETWORK: ONLINE</span>
           </div>
           <div class="system-status">
             <i data-lucide="shield-check" class="text-emerald" style="width: 14px; height: 14px;"></i>
@@ -119,66 +125,146 @@
                 <canvas id="globe-canvas" width="320" height="320"></canvas>
               </div>
             </center>
-            <h1 class="hero-title gradient-text-cyan-purple">AURA AI</h1>
+            <h1 class="hero-title gradient-text-emerald-gold">AURA WEALTH</h1>
             <p class="hero-subtitle">
-              Your Personal AI Assistant. Managing a team of smart AI helpers working to save you money and grow your wealth.
+              Agentic Customer Acquisition & Hyper-Personalized Conversational Onboarding. Localized for Indian Retail & Business Banking.
             </p>
-            <button class="btn-glow-cyan" id="btn-launch-ai">
-              <span>Start AI Helpers</span>
-              <i data-lucide="power"></i>
+            <button class="btn-glow-emerald" id="btn-launch-ai">
+              <span>Start Agentic Platform</span>
+              <i data-lucide="arrow-right"></i>
             </button>
           </div>
         </div>
 
-        <!-- 2. AI DAILY BRIEFING -->
+        <!-- 2. CLIENT PORTAL (CONVERT & ONBOARD) -->
+        <div id="page-onboard" class="page-view">
+          <div class="onboard-layout">
+            
+            <!-- Conversational Onboarding Chat Panel -->
+            <div class="glass-card chat-pane">
+              <div class="section-header">
+                <h3>Aura Financial Concierge</h3>
+                <span class="badge-pulse"><span class="dot"></span>ONBOARDING ACTIVE</span>
+              </div>
+              
+              <!-- Chat History Container -->
+              <div class="chat-body" id="onboard-chat-body">
+                <!-- Chat messages injected dynamically -->
+              </div>
+              
+              <!-- Input panel with options -->
+              <div class="chat-input-area">
+                <div class="chat-options" id="chat-quick-options">
+                  <!-- Quick reply options injected dynamically -->
+                </div>
+                <div class="chat-input-wrapper" style="margin-top: 10px;">
+                  <input type="text" class="chat-input" id="chat-user-input" placeholder="Type your response here..." />
+                  <button class="btn-send" id="btn-send-message">
+                    <i data-lucide="send"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Qualified Product Live Preview & Live Reasoning -->
+            <div class="onboard-display-pane">
+              
+              <!-- Qualified Product Preview -->
+              <div class="glass-card offer-showcase">
+                <h4 style="font-size: 11px; font-family: var(--font-mono); color: #64748b; text-transform: uppercase; margin-bottom: 15px; width: 100%; text-align: left;">Live Qualified Offer</h4>
+                
+                <div class="premium-credit-card silver" id="qualified-card">
+                  <div class="card-header-logo">
+                    <div class="card-brand">AURA WEALTH</div>
+                    <div class="card-chip"></div>
+                  </div>
+                  <div class="card-number" id="card-number-display">XXXX XXXX XXXX XXXX</div>
+                  <div class="card-footer">
+                    <div class="card-holder">
+                      <label>CARD HOLDER</label>
+                      <span id="card-holder-display">APPLICANT</span>
+                    </div>
+                    <div class="card-type" id="card-tier-display">SILVER TIER</div>
+                  </div>
+                </div>
+                
+                <!-- Dynamic Card Benefits in Rupees -->
+                <div class="card-benefits-display">
+                  <h4 id="benefits-title">Select product in chat...</h4>
+                  <ul id="benefits-list">
+                    <li><i data-lucide="shield-check"></i>Complete chat to get pre-qualification checks.</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <!-- Live Reasoning Logger -->
+              <div class="glass-card reasoning-panel" style="max-height: 240px;">
+                <div class="reasoning-header">
+                  <i data-lucide="terminal" style="width: 14px; height: 14px;"></i>
+                  <span>Live Agent Cooperative Reasoning</span>
+                </div>
+                <div class="reasoning-list" id="onboard-reasoning-list">
+                  <div class="reasoning-step">
+                    <span class="agent">Onboarding Agent:</span>
+                    <span class="text">Waiting for user to initiate onboarding flow...</span>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+
+        <!-- 3. DAILY BRIEFING -->
         <div id="page-briefing" class="page-view">
           <div class="briefing-layout">
             <div class="briefing-header">
-              <h2 class="text-cyan">Good Morning Sai</h2>
-              <p style="color: #94a3b8; font-size: 14px; margin-top: 8px;">Here is what your AI helpers did for you today.</p>
+              <h2 class="text-emerald" id="briefing-user-greeting">Namaste Sai</h2>
+              <p style="color: #94a3b8; font-size: 14px; margin-top: 8px;">Here is what your AI helpers calculated for you today.</p>
             </div>
             
             <div class="briefing-grid">
               <div class="glass-card briefing-card">
-                <div class="briefing-card-icon"><i data-lucide="dollar-sign"></i></div>
+                <div class="briefing-card-icon"><i data-lucide="landmark"></i></div>
                 <div class="briefing-card-content">
-                  <h3>Salary Received</h3>
-                  <p>+$8,450.00 deposited. Putting your money into the best savings and investment plans...</p>
+                  <h3>Salary Deposited</h3>
+                  <p>₹1,25,000.00 credited. Putting your money into the best savings and FD interest yields...</p>
                 </div>
               </div>
               <div class="glass-card briefing-card">
                 <div class="briefing-card-icon"><i data-lucide="plane"></i></div>
                 <div class="briefing-card-content">
-                  <h3>Found Travel Plan</h3>
-                  <p>Trip to Tokyo detected in Calendar. Compared flight insurance to find the best deals for you.</p>
+                  <h3>Travel Intent Scanned</h3>
+                  <p>Trip to Tokyo detected. Personalizer Agent found flight rates and travel cards with zero forex markups.</p>
                 </div>
               </div>
               <div class="glass-card briefing-card">
                 <div class="briefing-card-icon"><i data-lucide="award"></i></div>
                 <div class="briefing-card-content">
-                  <h3>Credit Rating Improved</h3>
-                  <p>Your score went up +18 points to 812. This helps you get cheaper home loans.</p>
+                  <h3>CIBIL Score Pre-Screen</h3>
+                  <p>Your estimated rating is 785. This qualifies you for pre-approved Home Loans under 8.25%.</p>
                 </div>
               </div>
               <div class="glass-card briefing-card">
                 <div class="briefing-card-icon"><i data-lucide="file-text"></i></div>
                 <div class="briefing-card-content">
-                  <h3>Insurance Renewal Soon</h3>
-                  <p>Auto insurance expires in 12 days. Found a new plan that saves you 15%.</p>
+                  <h3>Tax Optimizer Actived</h3>
+                  <p>FY27 80C limits scanned. Found dynamic investments that save you up to ₹45,000 in income taxes.</p>
                 </div>
               </div>
               <div class="glass-card briefing-card">
                 <div class="briefing-card-icon"><i data-lucide="piggy-bank"></i></div>
                 <div class="briefing-card-content">
-                  <h3>Subscription Alert</h3>
-                  <p>Found unused apps costing you $120/month. Suggestions updated.</p>
+                  <h3>Unused Subscription</h3>
+                  <p>Found 3 SaaS tool charges costing you ₹3,400/month that you haven't accessed in 60 days.</p>
                 </div>
               </div>
               <div class="glass-card briefing-card">
                 <div class="briefing-card-icon"><i data-lucide="shield-alert"></i></div>
                 <div class="briefing-card-content">
-                  <h3>Security Scan</h3>
-                  <p>Checked 47 purchase requests. 0 suspicious charges found. System safe.</p>
+                  <h3>UPI Fraud Scan</h3>
+                  <p>Checked 52 active transactions. 0 security threats found. System completely safe.</p>
                 </div>
               </div>
             </div>
@@ -186,7 +272,7 @@
             <div class="briefing-summary-row">
               <div class="glass-card briefing-summary-card">
                 <h4>Total Money Saved This Month</h4>
-                <div class="saved-counter" id="briefing-saved-counter">$380.00</div>
+                <div class="saved-counter" id="briefing-saved-counter">₹18,500</div>
               </div>
               <div class="glass-card briefing-summary-card">
                 <h4>AI Helpfulness Score</h4>
@@ -195,143 +281,96 @@
             </div>
 
             <center>
-              <button class="btn-glow-cyan" id="btn-briefing-continue">
-                <span>See AI Helpers Status</span>
+              <button class="btn-glow-emerald" id="btn-briefing-continue">
+                <span>See AI Suggestions</span>
                 <i data-lucide="arrow-right"></i>
               </button>
             </center>
           </div>
         </div>
 
-        <!-- 3. AI MISSION CONTROL -->
-        <div id="page-mission-control" class="page-view">
-          <div style="margin-bottom: 25px;">
-            <h2 class="text-cyan">AI Helpers Status</h2>
-            <p style="color: #64748b; font-size: 13px;">See what your AI helpers are currently working on.</p>
-          </div>
-          
-          <div class="mission-grid" id="agents-grid">
-            <!-- Automatically populated via app.js -->
-          </div>
-        </div>
-
-        <!-- 5. LIFE TIMELINE -->
-        <div id="page-timeline" class="page-view">
-          <div style="margin-bottom: 30px; text-align: center;">
-            <h2 class="text-cyan">Future Expenses Map</h2>
-            <p style="color: #94a3b8; font-size: 13px;">A simple view of your upcoming expenses, big events, and savings goals.</p>
-          </div>
-          
-          <div class="timeline-layout">
-            <div class="timeline-track"></div>
+        <!-- 4. BANKER CONTROL ROOM (IDENTIFY & QUALIFY) -->
+        <div id="page-banker" class="page-view">
+          <div class="dashboard-grid">
             
-            <div class="timeline-item glass-card expanded" data-event-id="salary-inc">
-              <div class="timeline-dot"></div>
-              <div class="timeline-card-header">
-                <h3>Salary Raised</h3>
-                <span class="timeline-date">CURRENT MONTH</span>
+            <!-- Main Banker Dashboard -->
+            <div class="dashboard-main">
+              <!-- Metric Summary Row -->
+              <div class="metrics-row">
+                <div class="glass-card metric-card">
+                  <div class="metric-title">Leads Identified Today</div>
+                  <div class="metric-value" id="metric-leads">42</div>
+                  <div class="metric-trend trend-up"><i data-lucide="trending-up"></i> +12% vs yesterday</div>
+                </div>
+                <div class="glass-card metric-card">
+                  <div class="metric-title">Qualified Volume</div>
+                  <div class="metric-value" id="metric-volume">₹2.4 Cr</div>
+                  <div class="metric-trend trend-up"><i data-lucide="trending-up"></i> +8.4 Lakhs new limit</div>
+                </div>
+                <div class="glass-card metric-card">
+                  <div class="metric-title">Onboarding Conversion</div>
+                  <div class="metric-value" id="metric-conversion">87.5%</div>
+                  <div class="metric-trend trend-up"><i data-lucide="check-circle-2"></i> +2.1% AI efficiency</div>
+                </div>
               </div>
-              <p class="timeline-card-collapsed">Found a recurring extra income of +$450.00 each month.</p>
-              <div class="timeline-card-expanded">
-                <div class="timeline-meta-grid">
+              
+              <!-- Identified Leads Table -->
+              <div class="glass-card crawler-card">
+                <div class="section-header">
                   <div>
-                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">AI Advice</label>
-                    <div class="text-cyan" style="font-weight: 600;">Auto-Save Booster</div>
+                    <h3>Identified Warm Leads (Social & MCA Crawl)</h3>
+                    <p style="color: #64748b; font-size: 12px; margin-top: 4px;">Leads auto-discovered in India based on intent triggers (e.g., MCA business creation, loan queries).</p>
                   </div>
-                  <div>
-                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Confidence</label>
-                    <div style="font-weight: 600;">98%</div>
-                  </div>
-                  <div>
-                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Total Saved</label>
-                    <div class="text-emerald" style="font-weight: 600;">+$28,400 (5 yrs)</div>
-                  </div>
+                  <span class="badge-pulse"><span class="dot"></span>CRAWLER ONLINE</span>
+                </div>
+                
+                <div class="leads-table-container">
+                  <table class="leads-table">
+                    <thead>
+                      <tr>
+                        <th>Lead Profile</th>
+                        <th>Target Product</th>
+                        <th>CIBIL Rating</th>
+                        <th>AI Intent Score</th>
+                        <th>Compliance Checked</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="banker-leads-tbody">
+                      <!-- Dynamic rows injected via app.js -->
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
-
-            <div class="timeline-item glass-card" data-event-id="flight-book">
-              <div class="timeline-dot"></div>
-              <div class="timeline-card-header">
-                <h3>Flight to Tokyo Booked</h3>
-                <span class="timeline-date">IN 1 MONTH</span>
+            
+            <!-- Banker Console & Sidebar -->
+            <div class="dashboard-sidebar-panel">
+              <!-- Agent List mini-status -->
+              <div class="glass-card agent-list-panel">
+                <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px;">Active Banking Agents</h3>
+                <div id="banker-agents-list">
+                  <!-- Dynamic agent listing -->
+                </div>
               </div>
-              <p class="timeline-card-collapsed">Found flight details to Japan in your calendar.</p>
-              <div class="timeline-card-expanded">
-                <div class="timeline-meta-grid">
-                  <div>
-                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">AI Advice</label>
-                    <div class="text-cyan" style="font-weight: 600;">Zero-Fee Travel Card</div>
-                  </div>
-                  <div>
-                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Confidence</label>
-                    <div style="font-weight: 600;">94%</div>
-                  </div>
-                  <div>
-                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Total Saved</label>
-                    <div class="text-emerald" style="font-weight: 600;">Saved $120 in fees</div>
-                  </div>
+              
+              <!-- Running System Log console -->
+              <div class="glass-card console-card">
+                <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px; font-family: var(--font-mono);">Agent Network Event Logs</h3>
+                <div class="console-logs" id="banker-console-logs">
+                  <!-- Dynamic system logs -->
                 </div>
               </div>
             </div>
-
-            <div class="timeline-item glass-card" data-event-id="birthday-renew">
-              <div class="timeline-dot"></div>
-              <div class="timeline-card-header">
-                <h3>Insurance Renewal & Birthday</h3>
-                <span class="timeline-date">IN 3 MONTHS</span>
-              </div>
-              <p class="timeline-card-collapsed">Your current insurance policy is expiring soon. We are looking for cheaper deals.</p>
-              <div class="timeline-card-expanded">
-                <div class="timeline-meta-grid">
-                  <div>
-                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">AI Advice</label>
-                    <div class="text-cyan" style="font-weight: 600;">Switch & Save Deal</div>
-                  </div>
-                  <div>
-                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Confidence</label>
-                    <div style="font-weight: 600;">96%</div>
-                  </div>
-                  <div>
-                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Total Saved</label>
-                    <div class="text-emerald" style="font-weight: 600;">Saved $180/yr</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="timeline-item glass-card" data-event-id="home-loan">
-              <div class="timeline-dot"></div>
-              <div class="timeline-card-header">
-                <h3>Qualify for a Home Loan</h3>
-                <span class="timeline-date">IN 6 MONTHS</span>
-              </div>
-              <p class="timeline-card-collapsed">Your rising savings mean you can now get a cheap home loan rate under 4.2%.</p>
-              <div class="timeline-card-expanded">
-                <div class="timeline-meta-grid">
-                  <div>
-                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">AI Advice</label>
-                    <div class="text-cyan" style="font-weight: 600;">Get Pre-Approved Loan</div>
-                  </div>
-                  <div>
-                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Confidence</label>
-                    <div style="font-weight: 600;">92%</div>
-                  </div>
-                  <div>
-                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Total Saved</label>
-                    <div class="text-emerald" style="font-weight: 600;">Saved $14,200 lifetime</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
 
-        <!-- 6. AI ACTION CENTER -->
+        <!-- 5. AI SUGGESTIONS (ACTION CENTER) -->
         <div id="page-action-center" class="page-view">
-          <div style="margin-bottom: 25px;">
-            <h2 class="text-cyan">AI Suggestions to Approve</h2>
-            <p style="color: #64748b; font-size: 13px;">Review and approve these simple suggestions to save and invest.</p>
+          <div style="margin-bottom: 25px; text-align: center;">
+            <h2 class="text-emerald">AI Suggestions to Approve</h2>
+            <p style="color: #64748b; font-size: 13px;">Review and approve these optimizations compiled by your AI agents to increase savings.</p>
           </div>
           
           <div class="action-layout" id="action-queue-container">
@@ -339,41 +378,40 @@
           </div>
         </div>
 
-        <!-- 7. FUTURE SIMULATOR -->
+        <!-- 6. SAVINGS SIMULATOR -->
         <div id="page-simulator" class="page-view">
           <div class="simulator-layout">
             <div class="simulator-controls glass-card">
-              <h3 class="text-cyan" style="font-size: 16px; font-weight: 600; margin-bottom: 15px;">Simulate a Big Purchase</h3>
+              <h3 class="text-emerald" style="font-size: 16px; font-weight: 600; margin-bottom: 15px;">Simulate savings in India</h3>
               
               <div class="scenario-selector">
-                <div class="scenario-option active" data-scenario="car"><i data-lucide="car"></i><span>Buy a New Car</span></div>
-                <div class="scenario-option" data-scenario="house"><i data-lucide="home"></i><span>Buy a New House</span></div>
+                <div class="scenario-option active" data-scenario="house"><i data-lucide="home"></i><span>Buy a Flat</span></div>
+                <div class="scenario-option" data-scenario="car"><i data-lucide="car"></i><span>Buy an EV</span></div>
                 <div class="scenario-option" data-scenario="marriage"><i data-lucide="heart"></i><span>Plan a Wedding</span></div>
-                <div class="scenario-option" data-scenario="tour"><i data-lucide="globe"></i><span>Plan a Big Vacation</span></div>
+                <div class="scenario-option" data-scenario="tour"><i data-lucide="plane"></i><span>Foreign Vacation</span></div>
               </div>
  
               <div class="simulator-slider-group">
                 <div class="slider-header">
-                  <span>Initial Payment Amount</span>
-                  <span id="val-slider-down">$20,000</span>
+                  <span>Down Payment Amount</span>
+                  <span id="val-slider-down">₹5,00,000</span>
                 </div>
-                <input type="range" class="cyber-slider" id="slider-down-payment" min="10000" max="150000" step="5000" value="20000">
+                <input type="range" class="cyber-slider" id="slider-down-payment" min="100000" max="2500000" step="50000" value="500000">
               </div>
  
               <div class="simulator-slider-group">
                 <div class="slider-header">
-                  <span>Extra Saved Monthly</span>
-                  <span id="val-slider-monthly">$800</span>
+                  <span>Monthly Investment</span>
+                  <span id="val-slider-monthly">₹15,000</span>
                 </div>
-                <input type="range" class="cyber-slider" id="slider-monthly-add" min="100" max="5000" step="100" value="800">
+                <input type="range" class="cyber-slider" id="slider-monthly-add" min="2000" max="100000" step="1000" value="15000">
               </div>
             </div>
  
             <div class="simulator-results-panel">
               <div class="glass-card chart-container-card">
-                <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px; font-family: var(--font-mono)">ESTIMATED TOTAL SAVINGS OVER 15 YEARS</h3>
+                <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px; font-family: var(--font-mono)">SAVINGS & YIELD OVER 10 YEARS</h3>
                 <svg class="simulator-chart-svg" viewBox="0 0 500 200">
-                  <!-- Gridlines -->
                   <line x1="0" y1="180" x2="500" y2="180" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
                   <line x1="0" y1="120" x2="500" y2="120" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
                   <line x1="0" y1="60" x2="500" y2="60" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
@@ -386,50 +424,150 @@
               </div>
  
               <div class="paths-comparison-grid">
-                <div class="glass-card path-comparison-card future-a">
-                  <h4 class="text-cyan">Plan A: Safe Savings</h4>
-                  <div class="path-stat" id="stat-a-net">$342,000</div>
-                  <p style="font-size: 10px; color: #64748b;">Target Age: 62 | Risk: Low</p>
+                <div class="glass-card path-comparison-card">
+                  <h4 class="text-emerald">Plan A: Safe Savings</h4>
+                  <div class="path-stat" id="stat-a-net">₹24,50,000</div>
+                  <p style="font-size: 10px; color: #64748b;">Risk: Low | Term: 10 yrs</p>
                 </div>
-                <div class="glass-card path-comparison-card future-b">
-                  <h4 class="text-purple">Plan B: Active Investing</h4>
-                  <div class="path-stat" id="stat-b-net">$518,000</div>
-                  <p style="font-size: 10px; color: #64748b;">Target Age: 57 | Risk: Medium</p>
+                <div class="glass-card path-comparison-card">
+                  <h4 class="text-gold">Plan B: Mutual Funds</h4>
+                  <div class="path-stat" id="stat-b-net">₹38,20,000</div>
+                  <p style="font-size: 10px; color: #64748b;">Risk: Moderate | Term: 10 yrs</p>
                 </div>
-                <div class="glass-card path-comparison-card future-c">
-                  <h4 class="text-emerald">Plan C: Best Savings Plan</h4>
-                  <div class="path-stat" id="stat-c-net">$695,000</div>
-                  <p style="font-size: 10px; color: #64748b;">Target Age: 54 | Risk: Balanced</p>
+                <div class="glass-card path-comparison-card">
+                  <h4 style="color: #a7f3d0;">Plan C: Premium Yield</h4>
+                  <div class="path-stat" id="stat-c-net">₹48,90,000</div>
+                  <p style="font-size: 10px; color: #64748b;">Risk: Optimized | Term: 10 yrs</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 8. AI WORKFORCE -->
-        <div id="page-workforce" class="page-view">
-          <div style="margin-bottom: 25px;">
-            <h2 class="text-cyan">Your AI Helpers List</h2>
-            <p style="color: #64748b; font-size: 13px;">See the details, settings, and active tasks of each of your AI helpers.</p>
+        <!-- 7. FUTURE EXPENSES MAP (TIMELINE) -->
+        <div id="page-timeline" class="page-view">
+          <div style="margin-bottom: 30px; text-align: center;">
+            <h2 class="text-emerald">Future Expenses Map</h2>
+            <p style="color: #94a3b8; font-size: 13px;">A scheduled map of upcoming life objectives, credit needs, and milestones in India.</p>
           </div>
           
-          <div class="workforce-grid" id="workforce-container">
-            <!-- Automatically populated via app.js -->
+          <div class="timeline-layout">
+            <div class="timeline-track"></div>
+            
+            <div class="timeline-item glass-card expanded" data-event-id="tax-saver">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card-header">
+                <h3>Submit 80C Tax Savings</h3>
+                <span class="timeline-date">CURRENT MONTH</span>
+              </div>
+              <p class="timeline-card-collapsed">Verify that tax-saving Mutual Fund SIPs are logged for rebate deductions.</p>
+              <div class="timeline-card-expanded">
+                <div class="timeline-meta-grid">
+                  <div>
+                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">AI Agent Advice</label>
+                    <div class="text-emerald" style="font-weight: 600;">Automated ELSS lock-in</div>
+                  </div>
+                  <div>
+                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Confidence</label>
+                    <div style="font-weight: 600;">97%</div>
+                  </div>
+                  <div>
+                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Tax Savings</label>
+                    <div class="text-emerald" style="font-weight: 600;">Saved ₹45,000 tax</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item glass-card" data-event-id="travel-cards">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card-header">
+                <h3>Foreign Trip: Tokyo, JP</h3>
+                <span class="timeline-date">IN 2 MONTHS</span>
+              </div>
+              <p class="timeline-card-collapsed">Scan cards to find zero forex markup limits to avoid excessive conversion charges.</p>
+              <div class="timeline-card-expanded">
+                <div class="timeline-meta-grid">
+                  <div>
+                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">AI Agent Advice</label>
+                    <div class="text-emerald" style="font-weight: 600;">Setup Forex Limit</div>
+                  </div>
+                  <div>
+                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Confidence</label>
+                    <div style="font-weight: 600;">94%</div>
+                  </div>
+                  <div>
+                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Est. Saved Fees</label>
+                    <div class="text-emerald" style="font-weight: 600;">Saved ₹8,200 in charges</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item glass-card" data-event-id="fd-mat">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card-header">
+                <h3>High-Yield FD Maturity</h3>
+                <span class="timeline-date">IN 6 MONTHS</span>
+              </div>
+              <p class="timeline-card-collapsed">₹5,00,000 Fixed Deposit matures. Customizer Agent will look to roll over at premium rates.</p>
+              <div class="timeline-card-expanded">
+                <div class="timeline-meta-grid">
+                  <div>
+                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">AI Agent Advice</label>
+                    <div class="text-emerald" style="font-weight: 600;">Reinvest: 8.10% yield</div>
+                  </div>
+                  <div>
+                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Confidence</label>
+                    <div style="font-weight: 600;">98%</div>
+                  </div>
+                  <div>
+                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Extra Return</label>
+                    <div class="text-emerald" style="font-weight: 600;">+₹40,500/year gain</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item glass-card" data-event-id="property-loan">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card-header">
+                <h3>Pre-Approved Flat Mortgage</h3>
+                <span class="timeline-date">IN 9 MONTHS</span>
+              </div>
+              <p class="timeline-card-collapsed">Eligible for housing loans up to ₹1.5 Crore matching CIBIL rating of 785.</p>
+              <div class="timeline-card-expanded">
+                <div class="timeline-meta-grid">
+                  <div>
+                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">AI Agent Advice</label>
+                    <div class="text-emerald" style="font-weight: 600;">8.40% Fixed floating</div>
+                  </div>
+                  <div>
+                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Confidence</label>
+                    <div style="font-weight: 600;">91%</div>
+                  </div>
+                  <div>
+                    <label style="color: #64748b; font-size: 9px; text-transform: uppercase;">Interest Saved</label>
+                    <div class="text-emerald" style="font-weight: 600;">Saved ₹2.1L interest</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- 9. AI MEMORY MATRIX -->
+        <!-- 8. AI MEMORY & PREFERENCES -->
         <div id="page-memory" class="page-view">
           <div class="memory-layout">
             <div style="margin-bottom: 25px; text-align: center;">
-              <h2 class="text-cyan">AI Memory & Preferences</h2>
-              <p style="color: #94a3b8; font-size: 13px;">Customize what your AI remembers about your preferences.</p>
+              <h2 class="text-emerald">AI Memory Matrix & Preferences</h2>
+              <p style="color: #94a3b8; font-size: 13px;">Manage financial attributes and parameters remembered by AURA agents to filter qualified products.</p>
             </div>
 
             <div class="glass-card" style="margin-bottom: 30px;">
               <div class="memory-input-group">
-                <input type="text" class="cyber-input" id="input-new-memory" placeholder="Add a new preference (e.g. Avoids high fees, limits eating out spending)...">
-                <button class="btn-cyber" id="btn-add-memory">Save Preference</button>
+                <input type="text" class="cyber-input" id="input-new-memory" placeholder="Enter preference parameter (e.g. Prefers UPI spends, avoids high processing fees)...">
+                <button class="btn-cyber" id="btn-add-memory">Add preference</button>
               </div>
 
               <div class="memory-tags-grid" id="memory-tags-container">
@@ -439,122 +577,66 @@
           </div>
         </div>
 
-
-
-        <!-- 12. IMPACT DASHBOARD -->
-        <div id="page-impact" class="page-view">
-          <div style="margin-bottom: 25px; text-align: center;">
-            <h2 class="text-cyan">Your Savings & Progress</h2>
-            <p style="color: #64748b; font-size: 13px;">See how much money you saved and protected using AURA AI.</p>
+        <!-- 9. AGENT STATUS MONITOR -->
+        <div id="page-agents" class="page-view">
+          <div style="margin-bottom: 25px;">
+            <h2 class="text-emerald">Agent Status Monitor</h2>
+            <p style="color: #64748b; font-size: 13px;">View operational telemetry, memory allocations, and tasks of the AURA Agent Network.</p>
           </div>
           
-          <div class="impact-grid">
-            <div class="glass-card impact-card">
-              <div class="impact-card-icon"><i data-lucide="piggy-bank"></i></div>
-              <h4>Monthly Savings</h4>
-              <div class="impact-counter text-cyan" id="impact-savings-counter">$380.00</div>
-              <p style="font-size: 10px; color: #64748b;">Saved on monthly apps and insurance plans</p>
-            </div>
-
-            <div class="glass-card impact-card">
-              <div class="impact-card-icon"><i data-lucide="shield-check"></i></div>
-              <h4>Security Threats Blocked</h4>
-              <div class="impact-counter text-purple" id="impact-fraud-counter">12</div>
-              <p style="font-size: 10px; color: #64748b;">Unwanted charges stopped on your card</p>
-            </div>
-
-            <div class="glass-card impact-card growth">
-              <div class="impact-card-icon"><i data-lucide="trending-up"></i></div>
-              <h4>Estimated 10-Year Growth</h4>
-              <div class="impact-counter text-emerald" id="impact-surplus-counter">$84,350.00</div>
-              <p style="font-size: 10px; color: #64748b;">Total growth of your extra monthly savings</p>
-            </div>
-
-            <div class="glass-card impact-card">
-              <div class="impact-card-icon"><i data-lucide="heart"></i></div>
-              <h4>Financial Health Score</h4>
-              <div class="impact-counter text-cyan">94 / 100</div>
-              <p style="font-size: 10px; color: #64748b;">Based on your savings buffer and low debts</p>
-            </div>
+          <div class="mission-grid" id="agents-grid">
+            <!-- Automatically populated via app.js -->
           </div>
         </div>
 
-        <!-- 13. SETTINGS CONTROL -->
+        <!-- 10. SETTINGS CONTROL -->
         <div id="page-settings" class="page-view">
-          <div class="settings-layout">
-            <div class="glass-card settings-section-card">
-              <h3><i data-lucide="shield-alert"></i>AI Control Settings</h3>
+          <div class="settings-grid">
+            <div class="glass-card settings-group">
+              <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;"><i data-lucide="shield-check" class="text-emerald"></i>Onboarding Controls</h3>
               
               <div class="settings-row">
                 <div class="settings-info">
-                  <h4>Auto-Invest Settings</h4>
-                  <p>Let AI make monthly investments up to $150 for you.</p>
+                  <h4>Automated KYC Checks</h4>
+                  <p>Trigger instant verification checks using PAN/Aadhaar databases.</p>
                 </div>
-                <label class="cyber-switch">
-                  <input type="checkbox" checked>
-                  <span class="switch-slider"></span>
+                <label class="switch">
+                  <input type="checkbox" id="chk-auto-kyc" checked>
+                  <span class="slider"></span>
                 </label>
               </div>
 
               <div class="settings-row">
                 <div class="settings-info">
-                  <h4>Connect Calendar</h4>
-                  <p>Check calendar for trips to find insurance and hotel discounts.</p>
+                  <h4>CIBIL Pre-Screening</h4>
+                  <p>Let compliance agents retrieve and qualify CIBIL scores in the background.</p>
                 </div>
-                <label class="cyber-switch">
-                  <input type="checkbox" checked>
-                  <span class="switch-slider"></span>
+                <label class="switch">
+                  <input type="checkbox" id="chk-cibil-check" checked>
+                  <span class="slider"></span>
                 </label>
               </div>
 
               <div class="settings-row">
                 <div class="settings-info">
-                  <h4>Cancel Unused Subscriptions Automatically</h4>
-                  <p>Let AI cancel unused accounts to save you money.</p>
+                  <h4>Hyper-Personalized Offers</h4>
+                  <p>Enable live cashback adjustments and rate optimization based on conversations.</p>
                 </div>
-                <label class="cyber-switch">
-                  <input type="checkbox">
-                  <span class="switch-slider"></span>
+                <label class="switch">
+                  <input type="checkbox" id="chk-live-offers" checked>
+                  <span class="slider"></span>
                 </label>
               </div>
             </div>
 
-            <div class="glass-card settings-section-card">
-              <h3><i data-lucide="sliders"></i>Dashboard Look & Feel</h3>
+            <div class="glass-card settings-group">
+              <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;"><i data-lucide="info" class="text-emerald"></i>Indian Market Configurations</h3>
               
-              <div class="theme-presets-grid">
-                <div class="theme-preset-card active" data-theme="sapphire">
-                  <div class="theme-color-dots">
-                    <span class="theme-dot" style="background: #00f0ff;"></span>
-                    <span class="theme-dot" style="background: #9d4edd;"></span>
-                  </div>
-                  <div>
-                    <h4 style="font-size: 13px; font-weight: 600;">Sapphire Blue</h4>
-                    <p style="font-size: 10px; color: #64748b;">Cyan and purple theme (Standard)</p>
-                  </div>
-                </div>
-
-                <div class="theme-preset-card" data-theme="gold">
-                  <div class="theme-color-dots">
-                    <span class="theme-dot" style="background: #ffd700;"></span>
-                    <span class="theme-dot" style="background: #ff8c00;"></span>
-                  </div>
-                  <div>
-                    <h4 style="font-size: 13px; font-weight: 600;">Cyberpunk Gold</h4>
-                    <p style="font-size: 10px; color: #64748b;">Cool golden theme</p>
-                  </div>
-                </div>
-
-                <div class="theme-preset-card" data-theme="violet">
-                  <div class="theme-color-dots">
-                    <span class="theme-dot" style="background: #da70d6;"></span>
-                    <span class="theme-dot" style="background: #8a2be2;"></span>
-                  </div>
-                  <div>
-                    <h4 style="font-size: 13px; font-weight: 600;">Obsidian Violet</h4>
-                    <p style="font-size: 10px; color: #64748b;">Sleek violet theme</p>
-                  </div>
-                </div>
+              <div style="font-size: 13px; line-height: 1.6; color: #94a3b8;">
+                <p style="margin-bottom: 10px;"><strong>Region:</strong> India (IN)</p>
+                <p style="margin-bottom: 10px;"><strong>Supported Currencies:</strong> INR (₹)</p>
+                <p style="margin-bottom: 10px;"><strong>Regulator Alignment:</strong> Reserve Bank of India (RBI) sandbox guidelines</p>
+                <p style="margin-bottom: 10px;"><strong>Compliance Modules:</strong> CIBIL score estimator, PAN verification API wrapper, GSTIN lookup agent simulation.</p>
               </div>
             </div>
           </div>
@@ -571,8 +653,8 @@
           <h2>Suspicious Charge Detected</h2>
           <div class="emergency-telemetry-log">
             [AURA SECURITY ALERT]<br>
-            WARNING: A payment request of $1,250.00 in Zurich, Switzerland was found.<br>
-            REASON: Location does not match your current location (Singapore).<br>
+            WARNING: A payment request of ₹1,05,000.00 in Zurich, Switzerland was found.<br>
+            REASON: Location does not match current location (Mumbai, India).<br>
             RISK LEVEL: 99% (Highly Suspicious)
           </div>
           <div class="emergency-actions-row">
@@ -585,8 +667,8 @@
 
       <!-- PROFILE EDITOR MODAL PANEL -->
       <div id="profile-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(2, 4, 10, 0.93); z-index: 101; display: none; align-items: center; justify-content: center;">
-        <div class="glass-card" style="max-width: 420px; width: 90%; text-align: center; border-color: var(--cyan-glow); box-shadow: 0 0 25px var(--cyan-dim);">
-          <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--cyan-dim); border: 1px solid var(--cyan-glow); display: flex; align-items: center; justify-content: center; color: var(--cyan-glow); margin: 0 auto 16px auto;">
+        <div class="glass-card" style="max-width: 420px; width: 90%; text-align: center; border-color: var(--emerald-glow); box-shadow: 0 0 25px var(--emerald-dim);">
+          <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--emerald-dim); border: 1px solid var(--emerald-glow); display: flex; align-items: center; justify-content: center; color: var(--emerald-glow); margin: 0 auto 16px auto;">
             <i data-lucide="user-cog" style="width: 24px; height: 24px;"></i>
           </div>
           <h2 style="font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Configure User Profile</h2>
@@ -610,8 +692,6 @@
           </div>
         </div>
       </div>
-
-
 
     </div>
 
