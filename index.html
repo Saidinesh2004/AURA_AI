@@ -48,10 +48,7 @@
               <i data-lucide="sparkles"></i>
               <span>Daily Briefing</span>
             </li>
-            <li class="nav-item" data-page="banker">
-              <i data-lucide="bar-chart-3"></i>
-              <span>Banker Control Room</span>
-            </li>
+
             <li class="nav-item" data-page="action-center">
               <i data-lucide="layers"></i>
               <span>AI Suggestions</span>
@@ -289,82 +286,7 @@
           </div>
         </div>
 
-        <!-- 4. BANKER CONTROL ROOM (IDENTIFY & QUALIFY) -->
-        <div id="page-banker" class="page-view">
-          <div class="dashboard-grid">
-            
-            <!-- Main Banker Dashboard -->
-            <div class="dashboard-main">
-              <!-- Metric Summary Row -->
-              <div class="metrics-row">
-                <div class="glass-card metric-card">
-                  <div class="metric-title">Leads Identified Today</div>
-                  <div class="metric-value" id="metric-leads">42</div>
-                  <div class="metric-trend trend-up"><i data-lucide="trending-up"></i> +12% vs yesterday</div>
-                </div>
-                <div class="glass-card metric-card">
-                  <div class="metric-title">Qualified Volume</div>
-                  <div class="metric-value" id="metric-volume">₹2.4 Cr</div>
-                  <div class="metric-trend trend-up"><i data-lucide="trending-up"></i> +8.4 Lakhs new limit</div>
-                </div>
-                <div class="glass-card metric-card">
-                  <div class="metric-title">Onboarding Conversion</div>
-                  <div class="metric-value" id="metric-conversion">87.5%</div>
-                  <div class="metric-trend trend-up"><i data-lucide="check-circle-2"></i> +2.1% AI efficiency</div>
-                </div>
-              </div>
-              
-              <!-- Identified Leads Table -->
-              <div class="glass-card crawler-card">
-                <div class="section-header">
-                  <div>
-                    <h3>Identified Warm Leads (Social & MCA Crawl)</h3>
-                    <p style="color: #64748b; font-size: 12px; margin-top: 4px;">Leads auto-discovered in India based on intent triggers (e.g., MCA business creation, loan queries).</p>
-                  </div>
-                  <span class="badge-pulse"><span class="dot"></span>CRAWLER ONLINE</span>
-                </div>
-                
-                <div class="leads-table-container">
-                  <table class="leads-table">
-                    <thead>
-                      <tr>
-                        <th>Lead Profile</th>
-                        <th>Target Product</th>
-                        <th>CIBIL Rating</th>
-                        <th>AI Intent Score</th>
-                        <th>Compliance Checked</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody id="banker-leads-tbody">
-                      <!-- Dynamic rows injected via app.js -->
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Banker Console & Sidebar -->
-            <div class="dashboard-sidebar-panel">
-              <!-- Agent List mini-status -->
-              <div class="glass-card agent-list-panel">
-                <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px;">Active Banking Agents</h3>
-                <div id="banker-agents-list">
-                  <!-- Dynamic agent listing -->
-                </div>
-              </div>
-              
-              <!-- Running System Log console -->
-              <div class="glass-card console-card">
-                <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px; font-family: var(--font-mono);">Agent Network Event Logs</h3>
-                <div class="console-logs" id="banker-console-logs">
-                  <!-- Dynamic system logs -->
-                </div>
-              </div>
-            </div>
-            
-          </div>
-        </div>
+
 
         <!-- 5. AI SUGGESTIONS (ACTION CENTER) -->
         <div id="page-action-center" class="page-view">

@@ -63,7 +63,6 @@ class AuraApp {
     
     // Core Panel Init
     this.setupOnboardingChat();
-    this.setupBankerDashboard();
     this.setupActionCenter();
     this.setupFutureSimulator();
     this.setupMemoryControls();
@@ -200,7 +199,6 @@ class AuraApp {
 
     // Trigger page renders
     if (pageId === 'agents') this.renderAgents();
-    else if (pageId === 'banker') this.renderBankerLeads();
     else if (pageId === 'action-center') this.renderActionQueue();
     else if (pageId === 'memory') this.renderMemoryTags();
   }
@@ -562,96 +560,7 @@ class AuraApp {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 
-  // --- BANKER PORTAL LOGIC ---
-  setupBankerDashboard() {
-    this.renderBankerLeads();
-    this.updateBankerMetricsDisplay();
-  }
 
-  renderBankerLeads() {
-    const tbody = document.getElementById('banker-leads-tbody');
-    if (!tbody) return;
-
-    tbody.innerHTML = this.bankerLeads.map(lead => `
-      <tr id="lead-row-${lead.id}">
-        <td>
-          <div class="lead-profile">
-            <div class="lead-avatar">${lead.name.split(' ').map(n=>n[0]).join('')}</div>
-            <div>
-              <div class="lead-name">${lead.name}</div>
-              <div class="lead-location"><i data-lucide="map-pin" style="width:10px;height:10px;display:inline;margin-right:2px;"></i>${lead.location}</div>
-            </div>
-          </div>
-        </td>
-        <td>${lead.product}</td>
-        <td>
-          <span class="score-value ${lead.cibil >= 750 ? 'text-emerald' : 'text-gold'}">${lead.cibil}</span>
-          <div style="font-size:10px;color:#64748b;">CIBIL rating</div>
-        </td>
-        <td>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <div class="intent-bar-wrapper">
-              <div class="intent-bar-fill" style="width: ${lead.intent}%"></div>
-            </div>
-            <span class="score-value text-gold">${lead.intent}%</span>
-          </div>
-        </td>
-        <td>
-          <span style="font-size:11px;color:${lead.checked ? 'var(--emerald-glow)' : '#64748b'};">
-            <i data-lucide="${lead.checked ? 'shield-check' : 'shield-alert'}" style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:4px;"></i>
-            ${lead.checked ? 'VERIFIED' : 'PENDING'}
-          </span>
-        </td>
-        <td>
-          <button class="btn-action-sm btn-onboard-lead" data-id="${lead.id}">
-            Onboard Lead
-          </button>
-        </td>
-      </tr>
-    `).join('');
-
-    tbody.querySelectorAll('.btn-onboard-lead').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const leadId = e.target.getAttribute('data-id');
-        this.handleBankerOnboardClick(leadId);
-      });
-    });
-    lucide.createIcons();
-  }
-
-  handleBankerOnboardClick(leadId) {
-    const lead = this.bankerLeads.find(x => x.id === leadId);
-    if (!lead) return;
-
-    audio.playSuccess();
-    this.navigateTo('onboard');
-
-    this.onboardStep = 0;
-    this.onboardData = { product: '', name: '', income: '', goal: '' };
-    
-    const chatBody = document.getElementById('onboard-chat-body');
-    if (chatBody) chatBody.innerHTML = '';
-
-    this.appendAssistantMessage(
-      `Namaste! I see you selected **${lead.name}** from the Banker dashboard.<br><br>Our Discovery Agent identified intent: <strong>"${lead.profile}"</strong>. Let's customize their onboarding for <strong>${lead.product}</strong>. <br><br>Initiate verification?`,
-      [`Verify ${lead.name}`, 'Cancel']
-    );
-
-    this.onboardStep = 1;
-    this.onboardData.product = lead.product;
-    this.onboardData.name = lead.name;
-    this.onboardData.estimatedCIBIL = lead.cibil;
-  }
-
-  updateBankerMetricsDisplay() {
-    const leadsEl = document.getElementById('metric-leads');
-    const volumeEl = document.getElementById('metric-volume');
-    const conversionEl = document.getElementById('metric-conversion');
-
-    if (leadsEl) leadsEl.textContent = this.stats.leadsCrawled;
-    if (volumeEl) volumeEl.textContent = `₹${this.stats.qualifiedVolume.toFixed(2)} Cr`;
-    if (conversionEl) conversionEl.textContent = `${this.stats.conversionRate.toFixed(1)}%`;
-  }
 
   addBankerConsoleLine(agentName, message, type = 'normal') {
     const logsEl = document.getElementById('banker-console-logs');
